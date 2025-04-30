@@ -1,0 +1,11 @@
+/* Glow effect for navigation links */
+.glow-effect {
+  box-shadow: 0 0 10px rgba(var(--accent-light-rgb), 0.5),
+              0 0 20px rgba(var(--accent-light-rgb), 0.3),
+              0 0 30px rgba(var(--accent-light-rgb), 0.1);
+}
+
+/* Enhanced hover state for navigation items */
+.nav-item:hover {
+  text-shadow: 0 0 8px rgba(var(--accent-light-rgb), 0.6);
+}

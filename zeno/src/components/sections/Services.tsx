@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CodeBracketIcon, DevicePhoneMobileIcon, GlobeAltIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import '../../styles/animations.css';
 
 const services = [
   {
@@ -26,8 +27,13 @@ const services = [
 
 const Services = () => {
   return (
-    <div className="section-padding bg-primary">
-      <div className="mx-auto max-w-7xl">
+    <div className="section-padding bg-primary relative overflow-hidden">
+      {/* Enhanced background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.15)_0%,transparent_70%)] animate-gradient" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.05)_0%,transparent_40%)] animate-shimmer" />
+      
+      <div className="mx-auto max-w-7xl relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,32 +41,61 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent"
+          >
             Our Services
-          </h2>
-          <p className="mt-4 text-lg text-gray-300">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 text-lg text-gray-300"
+          >
             Comprehensive software solutions tailored to your business needs
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={service.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ y: -8, scale: 1.03, rotateX: 5 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card group hover:bg-accent/10 cursor-pointer"
+              className="card group cursor-pointer backdrop-blur-sm bg-white/5 border border-white/10 hover:border-accent/50 hover:bg-accent/5 transform-gpu hover:shadow-[0_0_30px_rgba(var(--accent-light-rgb),0.2)] transition-all duration-500 ease-out"
             >
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-accent-light to-accent opacity-25 group-hover:opacity-50 transition-opacity duration-300" />
+              <div className="relative p-6">
+                <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-accent-light to-accent opacity-0 group-hover:opacity-20 transition-all duration-500 blur-xl animate-pulse" style={{ animationDuration: '2s' }} />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-accent-light/20 to-transparent opacity-0 group-hover:opacity-10 transition-all duration-500" />
                 <div className="relative">
-                  <service.icon className="h-12 w-12 text-accent-light group-hover:text-accent transition-colors duration-300" />
-                  <h3 className="mt-6 text-xl font-semibold text-white">{service.name}</h3>
-                  <p className="mt-4 text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                  <motion.div
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                  >
+                    <service.icon className="h-12 w-12 text-accent-light group-hover:text-accent transition-colors duration-300" />
+                  </motion.div>
+                  <motion.h3
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="mt-6 text-xl font-semibold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-accent-light group-hover:to-accent"
+                  >
+                    {service.name}
+                  </motion.h3>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="mt-4 text-gray-400 group-hover:text-gray-300 transition-colors duration-300"
+                  >
                     {service.description}
-                  </p>
+                  </motion.p>
                 </div>
               </div>
             </motion.div>

@@ -3,27 +3,39 @@ import { motion } from 'framer-motion';
 const Hero = () => {
   return (
     <div className="relative isolate overflow-hidden pt-14">
-      <div className="absolute inset-0 -z-10 gradient-bg opacity-30" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.1)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/5 to-transparent" />
       
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mx-auto max-w-2xl text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="mx-auto max-w-2xl text-center relative"
         >
+          <div className="absolute -inset-x-20 -inset-y-10 bg-white/5 backdrop-blur-xl rounded-3xl -z-10 border border-white/10" />
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500 bg-clip-text text-transparent"
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 100
+            }}
+            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent"
           >
             Building the Future of Digital Innovation
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              type: "spring",
+              stiffness: 50
+            }}
             className="mt-6 text-lg leading-8 text-gray-300"
           >
             We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
@@ -31,15 +43,38 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.6,
+              type: "spring",
+              stiffness: 100
+            }}
             className="mt-10 flex items-center justify-center gap-x-6"
           >
-            <a href="/contact" className="btn-primary">
-              Start Your Project
-            </a>
-            <a href="/services" className="text-sm font-semibold leading-6 text-gray-300 hover:text-accent-light transition-colors duration-300">
-              Learn more <span aria-hidden="true">→</span>
-            </a>
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="/contact"
+              className="btn-primary relative overflow-hidden group"
+            >
+              <span className="relative z-10">Start Your Project</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent-light to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.a>
+            <motion.a
+              whileHover={{ x: 5 }}
+              href="/services"
+              className="text-sm font-semibold leading-6 text-gray-300 hover:text-accent-light transition-colors duration-300 flex items-center"
+            >
+              Learn more
+              <motion.span
+                initial={{ x: 0 }}
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+                className="ml-2"
+              >
+                →
+              </motion.span>
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>
