@@ -15,7 +15,8 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-primary/20 backdrop-blur-xl border-b border-white/5 shadow-[0_0_20px_rgba(59,130,246,0.2)]">
+    <header className="fixed inset-x-0 top-0 z-50 bg-primary/40 backdrop-blur-2xl border-b border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -58,10 +59,12 @@ export default function Navbar() {
             >
               <Link
                 to={item.href}
-                className="text-base font-medium text-gray-200 hover:text-cyan-400 transition-all duration-300 relative group px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10"
+                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-white/5 hover:border-cyan-400/30"
               >
                 {item.name}
-                <span className="absolute inset-x-2 bottom-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect" />
+                <span className="absolute inset-x-2 bottom-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400/30 to-blue-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="absolute -inset-1 rounded-xl bg-gradient-to-r from-cyan-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300" />
               </Link>
             </motion.div>
           ))}
@@ -123,10 +126,12 @@ export default function Navbar() {
                 >
                   <Link
                     to={item.href}
-                    className="block rounded-xl px-4 py-3 text-lg font-medium text-gray-200 hover:text-cyan-400 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                    className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/5 hover:border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] relative group overflow-hidden"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item.name}
+                    <span className="relative z-10">{item.name}</span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="absolute -inset-1 bg-gradient-to-r from-cyan-400/10 to-blue-500/10 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300" />
                   </Link>
                 </motion.div>
               ))}
