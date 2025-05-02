@@ -59,7 +59,7 @@ export default function Navbar() {
             >
               <Link
                 to={item.href}
-                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-white/5 hover:border-cyan-400/30"
+                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl bg-white/15 hover:bg-white/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] border border-white/10 hover:border-cyan-400/50"
               >
                 {item.name}
                 <span className="absolute inset-x-2 bottom-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
@@ -77,7 +77,7 @@ export default function Navbar() {
         >
           <Link
             to="/contact"
-            className="relative overflow-hidden group px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-base shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all duration-300"
+            className="relative overflow-hidden group px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold text-base shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_35px_rgba(59,130,246,0.7)] transition-all duration-300 border border-white/20 hover:border-white/40"
           >
             <span className="relative z-10">Get Started</span>
             <motion.div
@@ -126,7 +126,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={item.href}
-                    className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/5 hover:border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] relative group overflow-hidden"
+                    className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 bg-white/15 hover:bg-white/30 transition-all duration-300 border border-white/10 hover:border-cyan-400/50 shadow-[0_0_25px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] relative group overflow-hidden"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="relative z-10">{item.name}</span>
@@ -143,7 +143,7 @@ export default function Navbar() {
               >
                 <Link
                   to="/contact"
-                  className="block text-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]"
+                  className="block text-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_35px_rgba(59,130,246,0.7)] border border-white/20 hover:border-white/40"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started

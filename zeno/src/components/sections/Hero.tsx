@@ -3,17 +3,20 @@ import { motion } from 'framer-motion';
 const Hero = () => {
   return (
     <div className="relative isolate overflow-hidden pt-14">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.1)_0%,transparent_70%)]" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/5 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.15)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 via-accent/5 to-transparent animate-gradient" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.1)_0%,transparent_40%)] animate-shimmer" />
       
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
-          className="mx-auto max-w-2xl text-center relative"
+          className="mx-auto max-w-2xl text-center relative group"
         >
-          <div className="absolute -inset-x-20 -inset-y-10 bg-white/5 backdrop-blur-xl rounded-3xl -z-10 border border-white/10" />
+          <div className="absolute -inset-x-20 -inset-y-10 bg-white/5 backdrop-blur-xl rounded-3xl -z-10 border border-white/10 group-hover:border-accent/20 transition-colors duration-500">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
