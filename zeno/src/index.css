@@ -1,1 +1,55 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent-light-rgb: 96, 165, 250;  /* Bright blue */
+  --accent-rgb: 37, 99, 235;         /* Rich blue */
+  --secondary-rgb: 16, 185, 129;      /* Emerald green */
+  --secondary-light-rgb: 52, 211, 153; /* Light emerald */
+}
+
+@layer base {
+  body {
+    @apply bg-background text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-full bg-gradient-to-r from-accent to-secondary text-white font-semibold text-base
+    shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_35px_rgba(37,99,235,0.7)]
+    transition-all duration-300 border border-white/20 hover:border-white/40;
+  }
+
+  .section-padding {
+    @apply py-24 sm:py-32 px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-xl p-6 relative overflow-hidden;
+  }
+
+  .glow-effect {
+    @apply relative;
+    text-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
+  }
+
+  .glow-effect::after {
+    @apply content-[''] absolute inset-0;
+    box-shadow:
+      0 0 15px rgba(96, 165, 250, 0.6),
+      0 0 30px rgba(96, 165, 250, 0.4),
+      0 0 45px rgba(96, 165, 250, 0.2);
+  }
+}
+
+@layer utilities {
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+}
