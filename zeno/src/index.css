@@ -9,6 +9,7 @@
   --secondary-light-rgb: 52, 211, 153; /* Light emerald */
 }
 
+@apply bg-background text-white;
 @layer base {
   body {
     @apply bg-background text-white;
@@ -17,9 +18,9 @@
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 rounded-full bg-gradient-to-r from-accent to-secondary text-white font-semibold text-base
+    @apply px-6 py-3 rounded-full bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 text-white font-semibold text-base
     shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_35px_rgba(37,99,235,0.7)]
-    transition-all duration-300 border border-white/20 hover:border-white/40;
+    transition-all duration-300 border border-white/20 hover:border-white/40 hover:scale-105 hover:animate-float;
   }
 
   .section-padding {
@@ -31,25 +32,36 @@
   }
 
   .glow-effect {
-    @apply relative;
+    @apply relative animate-glow;
     text-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
   }
 
   .glow-effect::after {
     @apply content-[''] absolute inset-0;
     box-shadow:
-      0 0 15px rgba(96, 165, 250, 0.6),
-      0 0 30px rgba(96, 165, 250, 0.4),
-      0 0 45px rgba(96, 165, 250, 0.2);
+      0 0 20px rgba(96, 165, 250, 0.7),
+      0 0 40px rgba(96, 165, 250, 0.5),
+      0 0 60px rgba(96, 165, 250, 0.3);
+    animation: pulse 3s ease-in-out infinite;
   }
 }
 
 @layer utilities {
   .animate-gradient {
     animation: gradient 8s linear infinite;
+    background-size: 200% 200%;
   }
 
   .animate-shimmer {
     animation: shimmer 3s linear infinite;
+    background-size: 200% 100%;
+  }
+
+  .hover-float {
+    @apply transition-transform duration-300 hover:translate-y-[-8px];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 bg-clip-text text-transparent;
   }
 }
