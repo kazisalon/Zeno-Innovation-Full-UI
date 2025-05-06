@@ -32,10 +32,10 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="py-24 sm:py-32 bg-primary relative overflow-hidden">
+    <div className="py-24 sm:py-32 bg-primary/80 relative overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(var(--accent-light-rgb),0.15)_0%,transparent_70%)] animate-gradient" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent animate-shimmer" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(var(--accent-light-rgb),0.2)_0%,transparent_70%)] animate-gradient" />
+      <div className="absolute inset-0 bg-gradient-to-b from-accent/10 via-accent/5 to-transparent animate-shimmer" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div

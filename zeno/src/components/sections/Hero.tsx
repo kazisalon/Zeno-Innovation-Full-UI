@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 const Hero = () => {
   return (
     <div className="relative isolate overflow-hidden pt-14">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.15)_0%,transparent_70%)] animate-gradient" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 via-accent/5 to-transparent animate-shimmer" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.1)_0%,transparent_40%)] animate-glow" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.35)_0%,transparent_70%)] animate-gradient" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/30 via-accent/15 to-transparent animate-shimmer" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.2)_0%,transparent_40%)] animate-glow" />
       
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <motion.div
@@ -15,7 +15,7 @@ const Hero = () => {
           className="mx-auto max-w-2xl text-center relative group"
         >
           <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
           </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ const Hero = () => {
             <motion.a
               whileHover={{ x: 5, y: -2 }}
               href="/services"
-              className="text-sm font-semibold leading-6 text-gray-300 hover:text-accent-light transition-all duration-300 flex items-center group"
+              className="text-sm font-semibold leading-6 text-gray-200 hover:text-accent-light transition-all duration-300 flex items-center group"
             >
               Learn more
               <motion.span

@@ -15,7 +15,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-primary/40 backdrop-blur-2xl border-b border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+    <header className="fixed inset-x-0 top-0 z-50 bg-primary/30 backdrop-blur-3xl border-b border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.4)] animate-gradient cyberpunk-border">
 
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <motion.div
@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link to="/" className="-m-1.5 p-1.5 group">
             <motion.span 
               whileHover={{ scale: 1.1, rotate: 3 }}
-              className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect"
+              className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect neon-text animate-float"
             >
               ZENO
             </motion.span>
@@ -59,7 +59,7 @@ export default function Navbar() {
             >
               <Link
                 to={item.href}
-                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl bg-white/15 hover:bg-white/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] border border-white/10 hover:border-cyan-400/50"
+                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl glass-effect hover:bg-white/20 hover:shadow-[0_0_40px_rgba(34,211,238,0.7)] border border-white/10 hover:border-cyan-400/50 pulse-glow"
               >
                 {item.name}
                 <span className="absolute inset-x-2 bottom-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
@@ -77,7 +77,7 @@ export default function Navbar() {
         >
           <Link
             to="/contact"
-            className="relative overflow-hidden group px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold text-base shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_35px_rgba(59,130,246,0.7)] transition-all duration-300 border border-white/20 hover:border-white/40"
+            className="relative overflow-hidden group px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold text-base shadow-[0_0_30px_rgba(59,130,246,0.6)] hover:shadow-[0_0_45px_rgba(59,130,246,0.8)] transition-all duration-300 border border-white/20 hover:border-white/40 animate-gradient pulse-glow"
           >
             <span className="relative z-10">Get Started</span>
             <motion.div
