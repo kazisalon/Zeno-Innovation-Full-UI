@@ -93,22 +93,22 @@ export default function Navbar() {
           animate={{ opacity: 1 }}
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
         />
-        <Dialog.Panel className="fixed	Inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+        <Dialog.Panel className="fixed Inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)] glass-effect cyberpunk-border">
           <motion.div
-            initial={{ x: 300 }}
-            animate={{ x: 0 }}
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="flex items-center justify-between"
           >
             <Link to="/" className="-m-1.5 p-1.5">
-              <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent neon-text animate-float">
                 ZENO
               </span>
             </Link>
             <motion.button
               whileTap={{ scale: 0.9 }}
               type="button"
-              className="rounded-full p-2.5 text-gray-300 hover:text-cyan-400 bg-white/10"
+              className="rounded-full p-2.5 text-gray-300 hover:text-cyan-400 bg-white/10 hover:bg-white/20 transition-all duration-300 pulse-glow"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -126,7 +126,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={item.href}
-                    className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 bg-white/15 hover:bg-white/30 transition-all duration-300 border border-white/10 hover:border-cyan-400/50 shadow-[0_0_25px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] relative group overflow-hidden"
+                    className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 glass-effect hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(34,211,238,0.6)] relative group overflow-hidden hover:scale-[1.02] hover:-translate-y-1"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="relative z-10">{item.name}</span>
@@ -143,7 +143,7 @@ export default function Navbar() {
               >
                 <Link
                   to="/contact"
-                  className="block text-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_35px_rgba(59,130,246,0.7)] border border-white/20 hover:border-white/40"
+                  className="block text-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold shadow-[0_0_30px_rgba(59,130,246,0.6)] hover:shadow-[0_0_45px_rgba(59,130,246,0.8)] border border-white/20 hover:border-white/40 animate-gradient pulse-glow hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started
