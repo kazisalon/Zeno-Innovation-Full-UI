@@ -1,15 +1,15 @@
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
-    opacity: 0.7;
+    opacity: 0.8;
   }
   50% {
     background-position: 100% 50%;
-    opacity: 0.9;
+    opacity: 1;
   }
   100% {
     background-position: 0% 50%;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 }
 
@@ -34,14 +34,27 @@
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 15px rgba(var(--accent-light-rgb), 0.4); }
-  50% { box-shadow: 0 0 35px rgba(var(--accent-light-rgb), 0.8); }
-  100% { box-shadow: 0 0 15px rgba(var(--accent-light-rgb), 0.4); }
+  0% { 
+    box-shadow: 
+      0 0 15px rgba(var(--accent-light-rgb), 0.4),
+      0 0 30px rgba(var(--accent-light-rgb), 0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 0 35px rgba(var(--accent-light-rgb), 0.8),
+      0 0 70px rgba(var(--accent-light-rgb), 0.4);
+  }
+  100% { 
+    box-shadow: 
+      0 0 15px rgba(var(--accent-light-rgb), 0.4),
+      0 0 30px rgba(var(--accent-light-rgb), 0.2);
+  }
 }
 
 .animate-gradient {
-  animation: gradient 15s ease infinite;
+  animation: gradient 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   background-size: 200% 200%;
+  transition: all 0.3s ease-in-out;
 }
 
 .animate-shimmer {
@@ -57,10 +70,13 @@
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 32px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gradient-border {
@@ -75,17 +91,21 @@
 }
 
 .hover-scale {
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-scale:hover {
   transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(var(--accent-light-rgb), 0.3);
 }
 
 .hover-lift {
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-lift:hover {
   transform: translateY(-5px);
+  box-shadow: 
+    0 15px 30px rgba(var(--accent-light-rgb), 0.2),
+    0 5px 15px rgba(0, 0, 0, 0.1);
 }
