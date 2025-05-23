@@ -15,7 +15,8 @@ const Hero = () => {
           className="mx-auto max-w-2xl text-center relative group"
         >
           <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/30 to-accent/30 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl animate-pulse" />
           </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -26,7 +27,7 @@ const Hero = () => {
               type: "spring",
               stiffness: 100
             }}
-            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2)]"
+            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
           >
             Building the Future of Digital Innovation
           </motion.h1>
@@ -58,7 +59,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
               href="/contact"
-              className="relative overflow-hidden group px-8 py-3 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-semibold shadow-lg hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4)] transition-all duration-300"
+              className="relative overflow-hidden group px-8 py-3 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-semibold shadow-lg hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_16px_rgba(var(--accent-light-rgb),0.6)] transition-all duration-300"
             >
               <span className="relative z-10 flex items-center">
                 Start Your Project
