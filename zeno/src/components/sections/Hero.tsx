@@ -1,8 +1,11 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 const Hero = () => {
   const containerRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -10,12 +13,36 @@ const Hero = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useSpring(1, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
-    <div ref={containerRef} className="relative isolate overflow-hidden pt-14">
+    <div ref={containerRef} className="relative isolate overflow-hidden pt-14 min-h-screen">
+      {/* Enhanced background effects */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.45)_0%,transparent_75%)] animate-gradient" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/40 via-accent/20 to-transparent animate-shimmer" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.3)_0%,transparent_50%)] animate-glow" />
+      
+      {/* Interactive 3D background */}
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        style={{
+          background: `radial-gradient(circle at ${50 + mousePosition.x * 10}% ${50 + mousePosition.y * 10}%, rgba(var(--accent-light-rgb),0.15) 0%, transparent 50%)`,
+          transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`,
+        }}
+      />
       
       <motion.div 
         style={{ y, opacity }}
@@ -27,10 +54,14 @@ const Hero = () => {
           transition={{ duration: 1, type: "spring", stiffness: 100 }}
           className="mx-auto max-w-2xl text-center relative group"
         >
+          {/* Enhanced glass effect */}
           <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-r from-accent-light/30 to-accent/30 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl animate-pulse" />
+            <div className="absolute inset-0 backdrop-blur-xl bg-white/5 rounded-3xl" />
           </div>
+
+          {/* Enhanced title with 3D effect */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,9 +72,14 @@ const Hero = () => {
               stiffness: 100
             }}
             className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
+            style={{
+              transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
+            }}
           >
             Building the Future of Digital Innovation
           </motion.h1>
+
+          {/* Enhanced description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,6 +93,8 @@ const Hero = () => {
           >
             We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
           </motion.p>
+
+          {/* Enhanced CTA buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,6 +119,7 @@ const Hero = () => {
                 </svg>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-all duration-300" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_0%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-all duration-300" />
             </motion.a>
             <motion.a
               whileHover={{ x: 5, y: -2 }}
@@ -121,9 +160,9 @@ const Hero = () => {
         />
       </div>
 
-      {/* Floating particles */}
+      {/* Enhanced floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 rounded-full bg-accent-light/30"
@@ -133,12 +172,15 @@ const Hero = () => {
             }}
             animate={{
               y: [0, -100],
+              x: [0, Math.random() * 50 - 25],
               opacity: [0, 1, 0],
+              scale: [0, 1, 0],
             }}
             transition={{
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
               delay: Math.random() * 5,
+              ease: "easeInOut",
             }}
           />
         ))}

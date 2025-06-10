@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { CodeBracketIcon, DevicePhoneMobileIcon, GlobeAltIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import '../../styles/animations.css';
 
 const services = [
@@ -9,29 +9,36 @@ const services = [
     description: 'Custom web applications built with modern technologies and frameworks, designed for scalability and performance.',
     icon: GlobeAltIcon,
     gradient: 'from-blue-400 to-accent',
+    features: ['React & Next.js', 'Node.js Backend', 'Cloud Integration', 'Real-time Updates'],
   },
   {
     name: 'Mobile Development',
     description: 'Native and cross-platform mobile applications that deliver exceptional user experiences across all devices.',
     icon: DevicePhoneMobileIcon,
     gradient: 'from-purple-400 to-accent',
+    features: ['iOS & Android', 'React Native', 'Flutter', 'Native APIs'],
   },
   {
     name: 'Custom Software',
     description: 'Tailored software solutions that automate processes and solve complex business challenges.',
     icon: CodeBracketIcon,
     gradient: 'from-green-400 to-accent',
+    features: ['Process Automation', 'API Integration', 'Data Analytics', 'Custom Workflows'],
   },
   {
     name: 'Digital Innovation',
     description: 'Cutting-edge solutions leveraging the latest technologies in AI, IoT, and cloud computing.',
     icon: RocketLaunchIcon,
     gradient: 'from-red-400 to-accent',
+    features: ['AI/ML Solutions', 'IoT Integration', 'Cloud Architecture', 'Blockchain'],
   },
 ];
 
 const Services = () => {
   const containerRef = useRef(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -39,6 +46,20 @@ const Services = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useSpring(1, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <div ref={containerRef} className="section-padding bg-primary relative overflow-hidden">
@@ -47,6 +68,15 @@ const Services = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.45)_0%,transparent_75%)] animate-shimmer" />
       <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.3)_0%,transparent_50%)] animate-glow" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIHN0cm9rZT0icmdiYSg1OSwxMzAsMjQ2LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
+      
+      {/* Interactive 3D background */}
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        style={{
+          background: `radial-gradient(circle at ${50 + mousePosition.x * 10}% ${50 + mousePosition.y * 10}%, rgba(var(--accent-light-rgb),0.15) 0%, transparent 50%)`,
+          transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`,
+        }}
+      />
       
       <motion.div 
         style={{ y, opacity }}
@@ -64,6 +94,9 @@ const Services = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
+            style={{
+              transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
+            }}
           >
             Our Services
           </motion.h2>
@@ -84,6 +117,8 @@ const Services = () => {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               whileHover={{ y: -8, scale: 1.02 }}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group cursor-pointer relative animate-float"
@@ -116,6 +151,32 @@ const Services = () => {
                   >
                     {service.description}
                   </motion.p>
+                  
+                  {/* Feature list */}
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ 
+                      opacity: hoveredIndex === index ? 1 : 0,
+                      height: hoveredIndex === index ? 'auto' : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 overflow-hidden"
+                  >
+                    <ul className="space-y-2">
+                      {service.features.map((feature, i) => (
+                        <motion.li
+                          key={feature}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: i * 0.1 }}
+                          className="flex items-center text-sm text-gray-300"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent-light mr-2" />
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
@@ -123,9 +184,9 @@ const Services = () => {
         </div>
       </motion.div>
 
-      {/* Floating particles */}
+      {/* Enhanced floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 rounded-full bg-accent-light/20"
@@ -135,12 +196,15 @@ const Services = () => {
             }}
             animate={{
               y: [0, -100],
+              x: [0, Math.random() * 50 - 25],
               opacity: [0, 1, 0],
+              scale: [0, 1, 0],
             }}
             transition={{
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
               delay: Math.random() * 5,
+              ease: "easeInOut",
             }}
           />
         ))}
