@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const navigation = [
@@ -13,9 +13,37 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-primary/30 backdrop-blur-3xl border-b border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.4)] animate-gradient cyberpunk-border">
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-primary/80 backdrop-blur-2xl shadow-lg border-b border-white/10' 
+        : 'bg-primary/30 backdrop-blur-3xl border-b border-white/10'
+    }`}>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 origin-left"
+        style={{ scaleX }}
+      />
 
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <motion.div
@@ -27,12 +55,17 @@ export default function Navbar() {
           <Link to="/" className="-m-1.5 p-1.5 group">
             <motion.span 
               whileHover={{ scale: 1.1, rotate: 3 }}
-              className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect neon-text animate-float"
+              className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect neon-text animate-float relative"
             >
               ZENO
+              <motion.span
+                className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"
+                style={{ filter: 'blur(8px)' }}
+              />
             </motion.span>
           </Link>
         </motion.div>
+
         <div className="flex lg:hidden">
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -44,6 +77,7 @@ export default function Navbar() {
             <Bars3Icon className="h-7 w-7" aria-hidden="true" />
           </motion.button>
         </div>
+
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -69,6 +103,7 @@ export default function Navbar() {
             </motion.div>
           ))}
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -87,16 +122,19 @@ export default function Navbar() {
           </Link>
         </motion.div>
       </nav>
+
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
         />
-        <Dialog.Panel className="fixed Inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)] glass-effect cyberpunk-border">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)] glass-effect cyberpunk-border">
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 300, opacity: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="flex items-center justify-between"
           >
@@ -115,7 +153,13 @@ export default function Navbar() {
               <XMarkIcon className="h-7 w-7" aria-hidden="true" />
             </motion.button>
           </motion.div>
-          <div className="mt-8 flow-root">
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="mt-6 flow-root"
+          >
             <div className="space-y-4">
               {navigation.map((item, index) => (
                 <motion.div
@@ -135,6 +179,7 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -150,7 +195,7 @@ export default function Navbar() {
                 </Link>
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </Dialog.Panel>
       </Dialog>
     </header>
