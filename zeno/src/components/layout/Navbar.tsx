@@ -1,19 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Services', href: '/services' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Services', href: '/services', notification: 2 },
+  { name: 'Projects', href: '/projects', notification: 0 },
+  { name: 'About', href: '/about', notification: 0 },
+  { name: 'Contact', href: '/contact', notification: 1 },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -29,8 +32,18 @@ export default function Navbar() {
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setSearchOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [scrolled]);
 
   return (
@@ -39,11 +52,23 @@ export default function Navbar() {
         ? 'bg-primary/80 backdrop-blur-2xl shadow-lg border-b border-white/10' 
         : 'bg-primary/30 backdrop-blur-3xl border-b border-white/10'
     }`}>
-      {/* Scroll Progress Bar */}
+      {/* Enhanced Scroll Progress Bar */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 origin-left"
         style={{ scaleX }}
-      />
+      >
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 blur-sm"
+          animate={{
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </motion.div>
 
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <motion.div
@@ -52,7 +77,27 @@ export default function Navbar() {
           transition={{ type: "spring", stiffness: 120, duration: 0.6 }}
           className="flex lg:flex-1"
         >
-          <Link to="/" className="-m-1.5 p-1.5 group">
+          <Link to="/" className="-m-1.5 p-1.5 group relative">
+            {/* Particle Effect */}
+            <div className="absolute inset-0 -z-10">
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 rounded-full bg-cyan-400"
+                  animate={{
+                    x: [0, Math.random() * 20 - 10],
+                    y: [0, Math.random() * 20 - 10],
+                    opacity: [0, 0.5, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
+                />
+              ))}
+            </div>
             <motion.span 
               whileHover={{ scale: 1.1, rotate: 3 }}
               className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect neon-text animate-float relative"
@@ -66,7 +111,16 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        <div className="flex lg:hidden">
+        <div className="flex items-center gap-4 lg:hidden">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            type="button"
+            className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
+            onClick={() => setSearchOpen(true)}
+          >
+            <span className="sr-only">Search</span>
+            <MagnifyingGlassIcon className="h-7 w-7" aria-hidden="true" />
+          </motion.button>
           <motion.button
             whileTap={{ scale: 0.9 }}
             type="button"
@@ -90,6 +144,7 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.15 }}
+              className="relative"
             >
               <Link
                 to={item.href}
@@ -99,6 +154,15 @@ export default function Navbar() {
                 <span className="absolute inset-x-2 bottom-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
                 <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400/30 to-blue-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="absolute -inset-1 rounded-xl bg-gradient-to-r from-cyan-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300" />
+                {item.notification > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
+                  >
+                    {item.notification}
+                  </motion.span>
+                )}
               </Link>
             </motion.div>
           ))}
@@ -108,8 +172,17 @@ export default function Navbar() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="hidden lg:flex lg:flex-1 lg:justify-end"
+          className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4"
         >
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            type="button"
+            className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
+            onClick={() => setSearchOpen(true)}
+          >
+            <span className="sr-only">Search</span>
+            <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+          </motion.button>
           <Link
             to="/contact"
             className="relative overflow-hidden group px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold text-base shadow-[0_0_30px_rgba(59,130,246,0.6)] hover:shadow-[0_0_45px_rgba(59,130,246,0.8)] transition-all duration-300 border border-white/20 hover:border-white/40 animate-gradient pulse-glow"
@@ -123,6 +196,40 @@ export default function Navbar() {
         </motion.div>
       </nav>
 
+      {/* Search Overlay */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            onClick={() => setSearchOpen(false)}
+          >
+            <motion.div
+              ref={searchRef}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="w-full px-6 py-4 rounded-2xl bg-primary/80 backdrop-blur-xl border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent shadow-lg"
+                />
+                <MagnifyingGlassIcon className="absolute right-6 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400" />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Enhanced Mobile Menu */}
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <motion.div
           initial={{ opacity: 0 }}
@@ -167,13 +274,25 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="relative"
                 >
                   <Link
                     to={item.href}
                     className="block rounded-xl px-5 py-4 text-xl font-semibold text-white hover:text-cyan-300 glass-effect hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(34,211,238,0.6)] relative group overflow-hidden hover:scale-[1.02] hover:-translate-y-1"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="relative z-10">{item.name}</span>
+                    <span className="relative z-10 flex items-center justify-between">
+                      {item.name}
+                      {item.notification > 0 && (
+                        <motion.span
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
+                        >
+                          {item.notification}
+                        </motion.span>
+                      )}
+                    </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <span className="absolute -inset-1 bg-gradient-to-r from-cyan-400/10 to-blue-500/10 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300" />
                   </Link>
