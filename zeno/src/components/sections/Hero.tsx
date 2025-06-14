@@ -5,6 +5,7 @@ const Hero = () => {
   const containerRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -44,7 +45,7 @@ const Hero = () => {
         }}
       />
       
-      <motion.div 
+      <motion.div
         style={{ y, opacity }}
         className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40"
       >
@@ -53,6 +54,8 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, type: "spring", stiffness: 100 }}
           className="mx-auto max-w-2xl text-center relative group"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {/* Enhanced glass effect */}
           <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500">
@@ -79,7 +82,7 @@ const Hero = () => {
             Building the Future of Digital Innovation
           </motion.h1>
 
-          {/* Enhanced description */}
+          {/* Enhanced description with animated underline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,12 +92,17 @@ const Hero = () => {
               type: "spring",
               stiffness: 50
             }}
-            className="mt-6 text-lg leading-8 text-gray-300 hover-lift"
+            className="mt-6 text-lg leading-8 text-gray-300 hover-lift relative group"
           >
             We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
+            <motion.span
+              className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-light to-accent group-hover:w-full transition-all duration-500"
+              initial={{ width: 0 }}
+              animate={{ width: isHovered ? "100%" : 0 }}
+            />
           </motion.p>
 
-          {/* Enhanced CTA buttons */}
+          {/* Enhanced CTA buttons with hover effects */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,9 +122,16 @@ const Hero = () => {
             >
               <span className="relative z-10 flex items-center">
                 Start Your Project
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <motion.svg 
+                  className="w-5 h-5 ml-2" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                  animate={{ x: isHovered ? 5 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+                </motion.svg>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-all duration-300" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_0%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-all duration-300" />
@@ -185,6 +200,46 @@ const Hero = () => {
           />
         ))}
       </div>
+
+      {/* New: Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{
+            y: [0, 10, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="flex flex-col items-center"
+        >
+          <span className="text-sm text-gray-400 mb-2">Scroll to explore</span>
+          <motion.div
+            className="w-6 h-10 border-2 border-accent-light/30 rounded-full flex justify-center"
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <motion.div
+              className="w-1.5 h-3 bg-accent-light rounded-full mt-2"
+              animate={{
+                y: [0, 12, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
