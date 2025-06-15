@@ -52,10 +52,10 @@ const Features = () => {
           transition={{ duration: 0.8 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent">
             Why Choose Us
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-300">
+          <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
             We combine innovation with expertise to deliver exceptional results for your business
           </p>
         </motion.div>
@@ -75,13 +75,20 @@ const Features = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-accent-light/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl" />
                 </div>
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
-                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-accent-light/10 text-accent-light group-hover:bg-accent-light/20 transition-all duration-300">
+                  <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-accent-light/10 text-accent-light group-hover:bg-accent-light/20 transition-all duration-300 group-hover:scale-110">
                     {feature.icon}
                   </div>
-                  {feature.title}
+                  <span className="text-xl">{feature.title}</span>
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
-                  <p className="flex-auto">{feature.description}</p>
+                  <p className="flex-auto text-lg">{feature.description}</p>
+                  <motion.div 
+                    className="mt-4 h-1 w-0 bg-gradient-to-r from-accent-light to-accent group-hover:w-full transition-all duration-500"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "100%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                  />
                 </dd>
               </motion.div>
             ))}
