@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { CodeBracketIcon, DevicePhoneMobileIcon, GlobeAltIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { useRef, useState, useEffect } from 'react';
 import '../../styles/animations.css';
@@ -38,6 +38,7 @@ const Services = () => {
   const containerRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeService, setActiveService] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -93,7 +94,7 @@ const Services = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
+            className="text-4xl font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
             style={{
               transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
             }}
@@ -104,42 +105,48 @@ const Services = () => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-lg text-gray-300 hover-lift"
+            className="mt-6 text-xl text-gray-300 hover-lift"
           >
             Comprehensive software solutions tailored to your business needs
           </motion.p>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={service.name}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
+              onHoverStart={() => {
+                setHoveredIndex(index);
+                setActiveService(index);
+              }}
+              onHoverEnd={() => {
+                setHoveredIndex(null);
+                setActiveService(null);
+              }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group cursor-pointer relative animate-float"
             >
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90`} />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl animate-pulse" />
-              <div className="relative glass-effect rounded-xl p-6 border border-white/25 group-hover:border-accent/60 transition-all duration-500 cyberpunk-border shadow-lg group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.3),0_0_16px_rgba(var(--accent-light-rgb),0.5)]">
+              <div className="relative glass-effect rounded-xl p-8 border border-white/25 group-hover:border-accent/60 transition-all duration-500 cyberpunk-border shadow-lg group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.3),0_0_16px_rgba(var(--accent-light-rgb),0.5)]">
                 <div className={`absolute inset-0 bg-gradient-to-tr ${service.gradient} opacity-0 group-hover:opacity-30 transition-all duration-500 rounded-xl`} />
                 <div className="relative">
                   <motion.div
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:opacity-80 transition-all duration-300 pulse-glow shadow-lg group-hover:shadow-[0_4px_16px_rgba(var(--accent-light-rgb),0.4),0_0_8px_rgba(var(--accent-light-rgb),0.6)]`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:opacity-80 transition-all duration-300 pulse-glow shadow-lg group-hover:shadow-[0_4px_16px_rgba(var(--accent-light-rgb),0.4),0_0_8px_rgba(var(--accent-light-rgb),0.6)]`}
                   >
-                    <service.icon className="h-6 w-6 text-white group-hover:text-white transition-all duration-300 transform group-hover:scale-110" />
+                    <service.icon className="h-7 w-7 text-white group-hover:text-white transition-all duration-300 transform group-hover:scale-110" />
                   </motion.div>
                   <motion.h3
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.2 }}
-                    className={`mt-6 text-xl font-semibold bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent animate-gradient [text-shadow:0_2px_4px_rgba(var(--accent-light-rgb),0.1)]`}
+                    className={`mt-6 text-2xl font-semibold bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent animate-gradient [text-shadow:0_2px_4px_rgba(var(--accent-light-rgb),0.1)]`}
                   >
                     {service.name}
                   </motion.h3>
@@ -147,36 +154,42 @@ const Services = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.3 }}
-                    className="mt-4 text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                    className="mt-4 text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-lg"
                   >
                     {service.description}
                   </motion.p>
                   
-                  {/* Feature list */}
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ 
-                      opacity: hoveredIndex === index ? 1 : 0,
-                      height: hoveredIndex === index ? 'auto' : 0
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 overflow-hidden"
-                  >
-                    <ul className="space-y-2">
-                      {service.features.map((feature, i) => (
-                        <motion.li
-                          key={feature}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: i * 0.1 }}
-                          className="flex items-center text-sm text-gray-300"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent-light mr-2" />
-                          {feature}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
+                  {/* Feature list with enhanced animations */}
+                  <AnimatePresence>
+                    {hoveredIndex === index && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-6 overflow-hidden"
+                      >
+                        <ul className="space-y-3">
+                          {service.features.map((feature, i) => (
+                            <motion.li
+                              key={feature}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.3, delay: i * 0.1 }}
+                              className="flex items-center text-base text-gray-300 group-hover:text-white transition-colors duration-300"
+                            >
+                              <motion.span 
+                                className="w-2 h-2 rounded-full bg-accent-light mr-3"
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                              />
+                              {feature}
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </motion.div>
@@ -184,9 +197,9 @@ const Services = () => {
         </div>
       </motion.div>
 
-      {/* Enhanced floating particles */}
+      {/* Enhanced floating particles with mouse interaction */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 rounded-full bg-accent-light/20"
@@ -205,6 +218,9 @@ const Services = () => {
               repeat: Infinity,
               delay: Math.random() * 5,
               ease: "easeInOut",
+            }}
+            style={{
+              filter: `blur(${Math.random() * 2}px)`,
             }}
           />
         ))}
