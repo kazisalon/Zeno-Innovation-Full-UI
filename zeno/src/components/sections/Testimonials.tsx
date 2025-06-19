@@ -21,6 +21,27 @@ const testimonials = [
   }
 ];
 
+const StarRating = () => (
+  <div className="flex items-center mb-2" aria-label="5 star rating">
+    {[...Array(5)].map((_, i) => (
+      <svg
+        key={i}
+        className="w-4 h-4 text-yellow-400 mr-0.5 drop-shadow"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        aria-hidden="true"
+      >
+        <motion.polygon
+          points="10 1.5 12.59 7.36 18.9 7.64 13.97 11.97 15.54 18.09 10 14.5 4.46 18.09 6.03 11.97 1.1 7.64 7.41 7.36 10 1.5"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: i * 0.05, duration: 0.3 }}
+        />
+      </svg>
+    ))}
+  </div>
+);
+
 const Testimonials = () => {
   return (
     <div className="relative py-24 sm:py-32 overflow-hidden">
@@ -74,12 +95,44 @@ const Testimonials = () => {
                     <p className="text-sm leading-6 text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="mt-6 text-base leading-7 text-gray-300 group-hover:text-white transition-colors duration-300">
-                  "{testimonial.content}"
-                </p>
+                <StarRating />
+                <div className="relative mt-6">
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 0.15, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                    aria-hidden="true"
+                    className="absolute -top-8 -left-6 text-7xl text-accent-light select-none pointer-events-none"
+                  >
+                    “
+                  </motion.span>
+                  <p className="text-base leading-7 text-gray-300 group-hover:text-white transition-colors duration-300 relative z-10">
+                    "{testimonial.content}"
+                  </p>
+                  <motion.span
+                    initial={{ opacity: 0, x: 10 }}
+                    whileInView={{ opacity: 0.15, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    aria-hidden="true"
+                    className="absolute -bottom-8 right-2 text-7xl text-accent-light select-none pointer-events-none"
+                  >
+                    ”
+                  </motion.span>
+                </div>
               </div>
             </motion.div>
           ))}
+        </div>
+        {/* Call-to-Action Button */}
+        <div className="mt-16 flex justify-center">
+          <motion.a
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.97 }}
+            href="#contact"
+            className="inline-block rounded-lg bg-accent-light px-8 py-3 text-lg font-semibold text-white shadow-lg shadow-accent/20 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-accent-light focus:ring-offset-2 transition-all duration-300"
+          >
+            Share Your Success Story
+          </motion.a>
         </div>
       </div>
     </div>
