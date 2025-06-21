@@ -16,13 +16,23 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [logoHovered, setLogoHovered] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  // Mock search suggestions
+  const mockSuggestions = [
+    'Web Development', 'Mobile Apps', 'UI/UX Design', 'Cloud Solutions',
+    'AI Integration', 'E-commerce', 'API Development', 'Consulting'
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,16 +45,52 @@ export default function Navbar() {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setSearchOpen(false);
+        setShowSuggestions(false);
       }
     };
 
+    // Swipe to close mobile menu
+    const handleTouchStart = (e: TouchEvent) => {
+      if (mobileMenuRef.current && mobileMenuOpen) {
+        const touch = e.touches[0];
+        const startX = touch.clientX;
+        
+        const handleTouchMove = (e: TouchEvent) => {
+          const touch = e.touches[0];
+          const currentX = touch.clientX;
+          const diffX = startX - currentX;
+          
+          if (diffX > 50) { // Swipe left to close
+            setMobileMenuOpen(false);
+            document.removeEventListener('touchmove', handleTouchMove);
+          }
+        };
+        
+        document.addEventListener('touchmove', handleTouchMove, { passive: true });
+      }
+    };
+
+    // Search suggestions
+    if (searchQuery.length > 2) {
+      const filtered = mockSuggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchSuggestions(filtered.slice(0, 5));
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleTouchStart);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleTouchStart);
     };
-  }, [scrolled]);
+  }, [scrolled, searchQuery, mobileMenuOpen]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -77,29 +123,34 @@ export default function Navbar() {
           transition={{ type: "spring", stiffness: 120, duration: 0.6 }}
           className="flex lg:flex-1"
         >
-          <Link to="/" className="-m-1.5 p-1.5 group relative">
-            {/* Particle Effect */}
+          <Link to="/" className="-m-1.5 p-1.5 group relative" 
+                onMouseEnter={() => setLogoHovered(true)}
+                onMouseLeave={() => setLogoHovered(false)}>
+            {/* Enhanced Particle Effect */}
             <div className="absolute inset-0 -z-10">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 rounded-full bg-cyan-400"
                   animate={{
-                    x: [0, Math.random() * 20 - 10],
-                    y: [0, Math.random() * 20 - 10],
-                    opacity: [0, 0.5, 0],
-                    scale: [0, 1, 0],
+                    x: logoHovered ? [0, Math.random() * 40 - 20] : [0, Math.random() * 20 - 10],
+                    y: logoHovered ? [0, Math.random() * 40 - 20] : [0, Math.random() * 20 - 10],
+                    opacity: [0, 0.8, 0],
+                    scale: [0, 1.5, 0],
                   }}
                   transition={{
-                    duration: 2,
+                    duration: logoHovered ? 1.5 : 2,
                     repeat: Infinity,
-                    delay: i * 0.2,
+                    delay: i * 0.1,
                   }}
                 />
               ))}
             </div>
             <motion.span 
               whileHover={{ scale: 1.1, rotate: 3 }}
+              animate={{ 
+                filter: logoHovered ? 'drop-shadow(0 0 20px rgba(34, 211, 238, 0.8))' : 'drop-shadow(0 0 8px rgba(34, 211, 238, 0.4))'
+              }}
               className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-700 bg-clip-text text-transparent glow-effect neon-text animate-float relative"
             >
               ZENO
@@ -158,9 +209,22 @@ export default function Navbar() {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
+                    whileHover={{ scale: 1.2 }}
                     className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
                   >
-                    {item.notification}
+                    <motion.span
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [1, 0.8, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {item.notification}
+                    </motion.span>
                   </motion.span>
                 )}
               </Link>
@@ -221,8 +285,39 @@ export default function Navbar() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..."
                   className="w-full px-6 py-4 rounded-2xl bg-primary/80 backdrop-blur-xl border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent shadow-lg"
+                  aria-label="Search"
+                  aria-expanded={showSuggestions}
+                  aria-haspopup="listbox"
                 />
                 <MagnifyingGlassIcon className="absolute right-6 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400" />
+                
+                {/* Search Suggestions */}
+                {showSuggestions && searchSuggestions.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-primary/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-lg overflow-hidden"
+                    role="listbox"
+                  >
+                    {searchSuggestions.map((suggestion, index) => (
+                      <motion.button
+                        key={suggestion}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors duration-200 focus:bg-white/10 focus:outline-none"
+                        onClick={() => {
+                          setSearchQuery(suggestion);
+                          setShowSuggestions(false);
+                        }}
+                        role="option"
+                      >
+                        {suggestion}
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -237,7 +332,10 @@ export default function Navbar() {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
         />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)] glass-effect cyberpunk-border">
+        <Dialog.Panel 
+          ref={mobileMenuRef}
+          className="fixed inset-y-0 right-0 z-50 w-full sm:w-3/4 max-w-sm overflow-y-auto bg-primary/95 backdrop-blur-xl px-6 py-6 border-l border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)] glass-effect cyberpunk-border"
+        >
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -287,9 +385,22 @@ export default function Navbar() {
                         <motion.span
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
+                          whileHover={{ scale: 1.2 }}
                           className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
                         >
-                          {item.notification}
+                          <motion.span
+                            animate={{ 
+                              scale: [1, 1.2, 1],
+                              opacity: [1, 0.8, 1]
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                          >
+                            {item.notification}
+                          </motion.span>
                         </motion.span>
                       )}
                     </span>
@@ -312,6 +423,20 @@ export default function Navbar() {
                 >
                   Get Started
                 </Link>
+                
+                {/* Back to Top Button */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
+                  className="mt-4 w-full text-center px-6 py-3 rounded-full bg-white/10 text-white font-semibold border border-white/20 hover:bg-white/20 transition-all duration-300"
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Back to Top
+                </motion.button>
               </motion.div>
             </div>
           </motion.div>
