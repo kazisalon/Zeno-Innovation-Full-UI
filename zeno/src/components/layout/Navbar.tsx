@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon, SunIcon, MoonIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,8 @@ export default function Navbar() {
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [logoHovered, setLogoHovered] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
@@ -81,6 +83,12 @@ export default function Navbar() {
       setShowSuggestions(false);
     }
 
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleTouchStart);
@@ -90,7 +98,7 @@ export default function Navbar() {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleTouchStart);
     };
-  }, [scrolled, searchQuery, mobileMenuOpen]);
+  }, [scrolled, searchQuery, mobileMenuOpen, darkMode]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -116,7 +124,7 @@ export default function Navbar() {
         />
       </motion.div>
 
-      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav className="flex items-center justify-between p-4 lg:px-8" aria-label="Global">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -162,25 +170,56 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        <div className="flex items-center gap-4 lg:hidden">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            type="button"
-            className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
-            onClick={() => setSearchOpen(true)}
+        <div className="flex items-center gap-4">
+          {/* Dark/Light mode toggle */}
+          <button
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={() => setDarkMode(!darkMode)}
+            className="rounded-full p-2 bg-white/10 hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
-            <span className="sr-only">Search</span>
-            <MagnifyingGlassIcon className="h-7 w-7" aria-hidden="true" />
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            type="button"
-            className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-7 w-7" aria-hidden="true" />
-          </motion.button>
+            {darkMode ? (
+              <SunIcon className="h-6 w-6 text-yellow-400" />
+            ) : (
+              <MoonIcon className="h-6 w-6 text-gray-400" />
+            )}
+          </button>
+          {/* User avatar/profile dropdown */}
+          <div className="relative">
+            <button
+              aria-label="Open user menu"
+              onClick={() => setUserDropdownOpen((open) => !open)}
+              className="rounded-full p-2 bg-white/10 hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            >
+              <UserCircleIcon className="h-7 w-7 text-cyan-400" />
+            </button>
+            {userDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-50">
+                <a href="#profile" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-cyan-100 dark:hover:bg-cyan-900">Profile</a>
+                <a href="#settings" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-cyan-100 dark:hover:bg-cyan-900">Settings</a>
+                <a href="#logout" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-cyan-100 dark:hover:bg-cyan-900">Logout</a>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-4 lg:hidden">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              type="button"
+              className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
+              onClick={() => setSearchOpen(true)}
+            >
+              <span className="sr-only">Search</span>
+              <MagnifyingGlassIcon className="h-7 w-7" aria-hidden="true" />
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              type="button"
+              className="inline-flex items-center justify-center rounded-full p-2.5 text-gray-300 hover:text-cyan-400 transition-colors duration-300 bg-white/5 hover:bg-white/10"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-7 w-7" aria-hidden="true" />
+            </motion.button>
+          </div>
         </div>
 
         <motion.div
@@ -199,33 +238,15 @@ export default function Navbar() {
             >
               <Link
                 to={item.href}
-                className="nav-link text-lg font-semibold text-white hover:text-cyan-300 transition-all duration-300 relative group px-5 py-3 rounded-xl glass-effect hover:bg-white/20 hover:shadow-[0_0_40px_rgba(34,211,238,0.7)] border border-white/10 hover:border-cyan-400/50 pulse-glow"
+                className="text-lg font-medium text-gray-200 hover:text-cyan-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 px-2 py-1 rounded"
+                tabIndex={0}
+                aria-label={item.name}
               >
                 {item.name}
-                <span className="absolute inset-x-2 bottom-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 glow-effect shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-                <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400/30 to-blue-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="absolute -inset-1 rounded-xl bg-gradient-to-r from-cyan-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300" />
                 {item.notification > 0 && (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    whileHover={{ scale: 1.2 }}
-                    className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
-                  >
-                    <motion.span
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [1, 0.8, 1]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      {item.notification}
-                    </motion.span>
-                  </motion.span>
+                  <span className="ml-1 inline-block bg-cyan-400 text-xs text-white rounded-full px-2 py-0.5 align-top animate-bounce">
+                    {item.notification}
+                  </span>
                 )}
               </Link>
             </motion.div>
