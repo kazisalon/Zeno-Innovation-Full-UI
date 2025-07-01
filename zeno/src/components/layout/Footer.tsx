@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Newsletter from '../sections/Newsletter';
+import ReactLogo from '../../assets/react.svg';
 
 const navigation = {
   main: [
@@ -40,11 +42,29 @@ const navigation = {
   ],
 };
 
+const quickLinks = [
+  { name: 'Privacy Policy', href: '/privacy' },
+  { name: 'Terms of Service', href: '/terms' },
+];
+
 const Footer = () => {
   return (
-    <footer className="relative mt-24 sm:mt-32">
+    <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white">
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-light/50 to-transparent" />
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+        {/* Logo and Company Name */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center justify-center mb-10"
+        >
+          <img src={ReactLogo} alt="Company Logo" className="h-12 w-12 mb-2" />
+          <span className="text-xl font-bold tracking-wide text-accent-light">Your Company</span>
+        </motion.div>
+
+        {/* Navigation Links */}
         <motion.nav
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,32 +85,90 @@ const Footer = () => {
           ))}
         </motion.nav>
 
+        {/* Quick Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mt-6 flex justify-center space-x-8"
+        >
+          {quickLinks.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-xs text-gray-400 hover:text-accent-light transition-colors duration-300"
+            >
+              {item.name}
+            </a>
+          ))}
+        </motion.div>
+
+        {/* Newsletter Signup */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-10 flex justify-center space-x-10"
+          className="mt-10"
         >
-          {navigation.social.map((item) => (
-            <motion.a
-              key={item.name}
-              href={item.href}
-              className="text-gray-400 hover:text-accent-light transition-colors duration-300"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </motion.a>
-          ))}
+          <Newsletter />
         </motion.div>
 
-        <motion.p
+        {/* Contact Info & Socials */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-10 flex flex-col items-center space-y-4"
+        >
+          <div className="flex items-center space-x-2 text-gray-400">
+            <svg className="h-5 w-5 text-accent-light" fill="currentColor" viewBox="0 0 20 20"><path d="M2.94 6.94a8 8 0 1111.31 11.31l-1.42-1.42a6 6 0 10-8.48-8.48l-1.41-1.41z" /><path d="M7 10a3 3 0 116 0 3 3 0 01-6 0z" /></svg>
+            <span>hello@example.com</span>
+          </div>
+          <div className="flex justify-center space-x-6">
+            {navigation.social.map((item) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                className="text-gray-400 hover:text-accent-light transition-colors duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6" aria-hidden="true" />
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Back to Top Button */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-10 flex justify-center"
+        >
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="inline-flex items-center px-4 py-2 rounded-full bg-accent-light text-white font-semibold shadow-lg hover:bg-accent focus:outline-none focus:ring-2 focus:ring-accent-light transition-all duration-300"
+            aria-label="Back to top"
+          >
+            <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
+            Back to Top
+          </button>
+        </motion.div>
+
+        {/* Copyright */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-10 text-center text-xs leading-5 text-gray-400"
         >
           &copy; {new Date().getFullYear()} Your Company, Inc. All rights reserved.
