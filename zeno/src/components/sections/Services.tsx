@@ -104,10 +104,10 @@ const Services = () => {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-xl text-gray-300 hover-lift"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-2 text-lg text-accent-light/80 font-medium"
           >
-            Comprehensive software solutions tailored to your business needs
+            Discover what we can build for you
           </motion.p>
         </motion.div>
 
@@ -129,8 +129,9 @@ const Services = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group cursor-pointer relative animate-float"
+              aria-label={`Service: ${service.name}`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90`} />
+              <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90 group-hover:ring-4 group-hover:ring-accent/40`} />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl animate-pulse" />
               <div className="relative glass-effect rounded-xl p-8 border border-white/25 group-hover:border-accent/60 transition-all duration-500 cyberpunk-border shadow-lg group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.3),0_0_16px_rgba(var(--accent-light-rgb),0.5)]">
                 <div className={`absolute inset-0 bg-gradient-to-tr ${service.gradient} opacity-0 group-hover:opacity-30 transition-all duration-500 rounded-xl`} />
@@ -178,11 +179,7 @@ const Services = () => {
                               transition={{ duration: 0.3, delay: i * 0.1 }}
                               className="flex items-center text-base text-gray-300 group-hover:text-white transition-colors duration-300"
                             >
-                              <motion.span 
-                                className="w-2 h-2 rounded-full bg-accent-light mr-3"
-                                animate={{ scale: [1, 1.2, 1] }}
-                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                              />
+                              <svg className="w-4 h-4 text-accent-light mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                               {feature}
                             </motion.li>
                           ))}
@@ -199,31 +196,45 @@ const Services = () => {
 
       {/* Enhanced floating particles with mouse interaction */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(40)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 rounded-full bg-accent-light/20"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-            }}
-            animate={{
-              y: [0, -100],
-              x: [0, Math.random() * 50 - 25],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
-            style={{
-              filter: `blur(${Math.random() * 2}px)`,
-            }}
-          />
-        ))}
+        {[...Array(40)].map((_, i) => {
+          const colorClass = i % 5 === 0 ? 'bg-accent' : i % 3 === 0 ? 'bg-blue-400/30' : 'bg-accent-light/20';
+          const size = i % 7 === 0 ? 'w-2.5 h-2.5' : i % 3 === 0 ? 'w-2 h-2' : 'w-1.5 h-1.5';
+          return (
+            <motion.div
+              key={i}
+              className={`absolute ${size} rounded-full ${colorClass}`}
+              initial={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+              }}
+              animate={{
+                y: [0, -100],
+                x: [0, Math.random() * 50 - 25],
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+              }}
+              transition={{
+                duration: Math.random() * 5 + 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "easeInOut",
+              }}
+              style={{
+                filter: `blur(${Math.random() * 2}px)`,
+              }}
+            />
+          );
+        })}
+      </div>
+      {/* CTA Button */}
+      <div className="flex justify-center mt-16">
+        <a
+          href="#contact"
+          className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2"
+          aria-label="Learn more about our services"
+        >
+          Learn More
+        </a>
       </div>
     </div>
   );
