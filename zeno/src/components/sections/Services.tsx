@@ -105,10 +105,16 @@ const Services = () => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-2 text-lg text-accent-light/80 font-medium"
+            className="mt-2 text-lg font-medium bg-gradient-to-r from-accent-light via-blue-400 to-accent bg-clip-text text-transparent animate-gradient"
           >
             Discover what we can build for you
           </motion.p>
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: '100%', opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mx-auto my-8 h-1 w-1/3 bg-gradient-to-r from-accent via-blue-400 to-accent rounded-full shadow-lg animate-pulse"
+          />
         </motion.div>
 
         <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -133,12 +139,14 @@ const Services = () => {
             >
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90 group-hover:ring-4 group-hover:ring-accent/40`} />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl animate-pulse" />
-              <div className="relative glass-effect rounded-xl p-8 border border-white/25 group-hover:border-accent/60 transition-all duration-500 cyberpunk-border shadow-lg group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.3),0_0_16px_rgba(var(--accent-light-rgb),0.5)]">
+              <div className="relative glass-effect rounded-xl p-8 border border-white/25 group-hover:border-accent/60 transition-all duration-500 cyberpunk-border shadow-2xl group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_32px_rgba(var(--accent-light-rgb),0.7)] backdrop-blur-md bg-white/10 group-hover:bg-white/20">
                 <div className={`absolute inset-0 bg-gradient-to-tr ${service.gradient} opacity-0 group-hover:opacity-30 transition-all duration-500 rounded-xl`} />
                 <div className="relative">
                   <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.7 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    transition={{ duration: 0.8, type: "spring", stiffness: 120, delay: 0.1 }}
                     className={`w-14 h-14 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:opacity-80 transition-all duration-300 pulse-glow shadow-lg group-hover:shadow-[0_4px_16px_rgba(var(--accent-light-rgb),0.4),0_0_8px_rgba(var(--accent-light-rgb),0.6)]`}
                   >
                     <service.icon className="h-7 w-7 text-white group-hover:text-white transition-all duration-300 transform group-hover:scale-110" />
@@ -176,8 +184,9 @@ const Services = () => {
                               key={feature}
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
+                              whileHover={{ x: 8, color: '#fff' }}
                               transition={{ duration: 0.3, delay: i * 0.1 }}
-                              className="flex items-center text-base text-gray-300 group-hover:text-white transition-colors duration-300"
+                              className="flex items-center text-base text-gray-300 group-hover:text-white transition-colors duration-300 group-hover:pl-2"
                             >
                               <svg className="w-4 h-4 text-accent-light mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                               {feature}
@@ -230,7 +239,7 @@ const Services = () => {
       <div className="flex justify-center mt-16">
         <a
           href="#contact"
-          className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2"
+          className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2 animate-pulse-glow"
           aria-label="Learn more about our services"
         >
           Learn More
