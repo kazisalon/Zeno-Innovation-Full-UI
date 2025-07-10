@@ -123,7 +123,7 @@ const Services = () => {
               key={service.name}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -8, scale: 1.02, rotate: 2 }} // Added tilt effect
               onHoverStart={() => {
                 setHoveredIndex(index);
                 setActiveService(index);
@@ -134,7 +134,7 @@ const Services = () => {
               }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer relative animate-float"
+              className="group cursor-pointer relative animate-float group-hover:ring-4 group-hover:ring-accent/40" // Added glowing border
               aria-label={`Service: ${service.name}`}
             >
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90 group-hover:ring-4 group-hover:ring-accent/40`} />
