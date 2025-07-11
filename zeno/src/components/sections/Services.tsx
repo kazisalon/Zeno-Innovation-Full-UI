@@ -134,7 +134,7 @@ const Services = () => {
               }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer relative animate-float group-hover:ring-4 group-hover:ring-accent/40" // Added glowing border
+              className="group cursor-pointer relative animate-float group-hover:ring-4 group-hover:ring-accent/40 group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_32px_rgba(var(--accent-light-rgb),0.7)] transition-shadow" // Added pulsing shadow
               aria-label={`Service: ${service.name}`}
             >
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90 group-hover:ring-4 group-hover:ring-accent/40`} />
@@ -147,7 +147,7 @@ const Services = () => {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.8, type: "spring", stiffness: 120, delay: 0.1 }}
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:opacity-80 transition-all duration-300 pulse-glow shadow-lg group-hover:shadow-[0_4px_16px_rgba(var(--accent-light-rgb),0.4),0_0_8px_rgba(var(--accent-light-rgb),0.6)]`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:opacity-80 transition-all duration-300 pulse-glow shadow-lg group-hover:shadow-[0_4px_16px_rgba(var(--accent-light-rgb),0.4),0_0_8px_rgba(var(--accent-light-rgb),0.6)] animate-float`} // Added floating animation
                   >
                     <service.icon className="h-7 w-7 text-white group-hover:text-white transition-all duration-300 transform group-hover:scale-110" />
                   </motion.div>
@@ -239,7 +239,7 @@ const Services = () => {
       <div className="flex justify-center mt-16">
         <a
           href="#contact"
-          className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2 animate-pulse-glow"
+          className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2 animate-pulse-glow hover:animate-bounce" // Added bounce on hover
           aria-label="Learn more about our services"
         >
           Learn More
