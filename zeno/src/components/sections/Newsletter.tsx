@@ -28,6 +28,8 @@ export default function Newsletter() {
           </svg>
         </div>
         <h2 className="text-3xl font-bold mb-2 text-gray-800 dark:text-white">Subscribe to our Newsletter</h2>
+        <p className="mb-2 text-gray-700 dark:text-gray-200">Stay ahead with our exclusive content and industry insights.</p>
+        <p className="mb-2 text-gray-700 dark:text-gray-200">Be the first to know about new features, updates, and special promotions.</p>
         <p className="mb-6 text-gray-600 dark:text-gray-300">Get the latest updates, news, and offers delivered straight to your inbox.</p>
         <div className="glass-effect p-6 rounded-xl shadow-lg">
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 items-center justify-center">
