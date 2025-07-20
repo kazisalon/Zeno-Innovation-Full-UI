@@ -176,6 +176,19 @@ const Footer = () => {
           <p>Thank you for visiting our website!</p>
         </motion.div>
 
+        {/* Enhancement Lines */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="mt-10 text-center text-sm text-gray-300 space-y-1"
+        >
+          <p>Empowering innovation, one idea at a time.</p>
+          <p>Designed and developed with passion.</p>
+          <p>Thank you for visiting our website!</p>
+        </motion.div>
+
         {/* Copyright */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
