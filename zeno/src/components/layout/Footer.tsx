@@ -52,16 +52,17 @@ const Footer = () => {
     <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white">
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-light/50 to-transparent" />
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        {/* Logo and Company Name */}
+        {/* Logo, Company Name, and Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center justify-center mb-10"
+          className="flex flex-col items-center justify-center mb-6"
         >
           <img src={ReactLogo} alt="Company Logo" className="h-12 w-12 mb-2" />
           <span className="text-xl font-bold tracking-wide text-accent-light">Your Company</span>
+          <span className="text-sm text-gray-400 mt-2 text-center max-w-xs">Empowering innovation through technology and creativity.</span>
         </motion.div>
 
         {/* Navigation Links */}
@@ -85,21 +86,25 @@ const Footer = () => {
           ))}
         </motion.nav>
 
-        {/* Quick Links */}
+        {/* Social Icons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="mt-6 flex justify-center space-x-8"
+          transition={{ duration: 0.8 }}
+          className="mt-10 flex flex-wrap justify-center gap-8"
         >
-          {quickLinks.map((item) => (
+          {navigation.social.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-xs text-gray-400 hover:text-accent-light transition-colors duration-300"
+              className="text-gray-400 hover:text-accent-light transition-colors duration-300"
+              aria-label={item.name}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {item.name}
+              <span className="sr-only">{item.name}</span>
+              {item.icon({ className: 'h-6 w-6' })}
             </a>
           ))}
         </motion.div>
@@ -199,6 +204,10 @@ const Footer = () => {
         >
           &copy; {new Date().getFullYear()} Your Company, Inc. All rights reserved.
         </motion.p>
+        {/* Copyright */}
+        <div className="mt-12 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+          &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+        </div>
       </div>
     </footer>
   );
