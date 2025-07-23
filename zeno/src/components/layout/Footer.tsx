@@ -60,7 +60,7 @@ const Footer = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center mb-6"
         >
-          <img src={ReactLogo} alt="Company Logo" className="h-12 w-12 mb-2" />
+          <img src={ReactLogo} alt="Company Logo" aria-label="Company Logo" className="h-12 w-12 mb-2" />
           <span className="text-xl font-bold tracking-wide text-accent-light">Your Company</span>
           <span className="text-sm text-gray-400 mt-2 text-center max-w-xs">Empowering innovation through technology and creativity.</span>
         </motion.div>
@@ -202,15 +202,21 @@ const Footer = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-6 text-center text-xs leading-5 text-gray-400"
         >
-          &copy; {new Date().getFullYear()} Your Company, Inc. All rights reserved.
+          &copy; {currentYear} Your Company, Inc. All rights reserved.
         </motion.p>
         {/* Copyright */}
         <div className="mt-12 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
-          &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+          &copy; {currentYear} Your Company. All rights reserved.
+            <div className="mt-4">
+              <a href="#top" className="text-accent-light hover:underline transition-colors">Back to top ↑</a>
+            </div>
         </div>
       </div>
     </footer>
   );
 };
+
+// Add dynamic year
+const currentYear = new Date().getFullYear();
 
 export default Footer;
