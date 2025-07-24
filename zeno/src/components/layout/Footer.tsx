@@ -52,12 +52,23 @@ const Footer = () => {
     <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white">
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-light/50 to-transparent" />
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        {/* Logo, Company Name, and Tagline */}
+        {/* Logo, Company Name, Tagline, and Enhancements */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+        >
+          {/* Logo and Company Name */}
+          <div className="flex items-center mb-2">
+            <img src={ReactLogo} alt="React Logo" className="h-8 w-8 mr-2" />
+            <span className="text-xl font-bold tracking-wide">Zeno Innovation</span>
+          </div>
+          {/* Tagline */}
+          <div className="text-accent-light text-sm mb-4">Empowering Innovation, Inspiring Progress.</div>
+          {/* Made with React */}
+          <div className="text-xs text-gray-400 mb-4">Made with <span className="text-red-400">❤️</span> using React</div>
+        </motion.div>
           className="flex flex-col items-center justify-center mb-6"
         >
           <img src={ReactLogo} alt="Company Logo" aria-label="Company Logo" className="h-12 w-12 mb-2" />
@@ -218,5 +229,8 @@ const Footer = () => {
 
 // Add dynamic year
 const currentYear = new Date().getFullYear();
+
+// Copyright line will be rendered in the footer
+
 
 export default Footer;
