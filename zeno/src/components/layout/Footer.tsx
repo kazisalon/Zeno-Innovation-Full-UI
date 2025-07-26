@@ -50,24 +50,22 @@ const quickLinks = [
 const Footer = () => {
   return (
     <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white">
-      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-light/50 to-transparent" />
+      {/* Enhanced glowing accent border */}
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-light/0 via-accent-light/70 to-accent-light/0 blur-sm opacity-70" />
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        {/* Logo, Company Name, Tagline, and Enhancements */}
+        {/* Logo, Company Name, Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Logo and Company Name */}
-          <div className="flex items-center mb-2">
-            <img src={ReactLogo} alt="React Logo" className="h-8 w-8 mr-2" />
-            <span className="text-xl font-bold tracking-wide">Zeno Innovation</span>
+          <div className="flex flex-col items-center mb-6">
+            <img src={ReactLogo} alt="React Logo" className="h-12 w-12 mb-2 drop-shadow-lg" />
+            <span className="text-2xl font-bold tracking-wide text-accent-light">Zeno Innovation</span>
+            <span className="text-base text-gray-300 mt-2 text-center max-w-xs">Empowering Innovation, Inspiring Progress.</span>
+            <span className="text-xs text-gray-400 mt-2">Made with <span className="text-red-400">❤️</span> using React</span>
           </div>
-          {/* Tagline */}
-          <div className="text-accent-light text-sm mb-4">Empowering Innovation, Inspiring Progress.</div>
-          {/* Made with React */}
-          <div className="text-xs text-gray-400 mb-4">Made with <span className="text-red-400">❤️</span> using React</div>
         </motion.div>
           className="flex flex-col items-center justify-center mb-6"
         >
@@ -89,7 +87,7 @@ const Footer = () => {
             <div key={item.name} className="pb-6">
               <Link
                 to={item.href}
-                className="text-sm leading-6 text-gray-300 hover:text-accent-light transition-colors duration-300"
+                className="text-sm leading-6 text-gray-300 hover:text-accent-light focus:text-accent-light focus:outline-none focus:ring-2 focus:ring-accent-light rounded transition-colors duration-300 px-2 py-1"
               >
                 {item.name}
               </Link>
@@ -109,7 +107,7 @@ const Footer = () => {
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-400 hover:text-accent-light transition-colors duration-300"
+              className="text-gray-400 hover:text-accent-light focus:text-accent-light focus:outline-none focus:ring-2 focus:ring-accent-light rounded-full transition-colors duration-300 p-2"
               aria-label={item.name}
               target="_blank"
               rel="noopener noreferrer"
@@ -171,10 +169,10 @@ const Footer = () => {
         >
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-accent-light text-white font-semibold shadow-lg hover:bg-accent focus:outline-none focus:ring-2 focus:ring-accent-light transition-all duration-300"
+            className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-accent-light to-accent shadow-lg text-white font-semibold hover:from-accent hover:to-accent-light focus:outline-none focus:ring-2 focus:ring-accent-light transition-all duration-300 border border-accent-light/30"
             aria-label="Back to top"
           >
-            <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
+            <svg className="h-5 w-5 mr-2 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
             Back to Top
           </button>
         </motion.div>
@@ -226,11 +224,11 @@ const Footer = () => {
         </motion.div>
 
 
-        {/* Copyright & Back to Top */}
-        <div className="mt-12 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
-          &copy; {currentYear} Zeno Innovation. All rights reserved.
-          <div className="mt-4">
-            <a href="#top" className="text-accent-light hover:underline transition-colors">Back to top ↑</a>
+        {/* Copyright Section */}
+        <div className="mt-12 border-t border-accent-light/30 pt-6 text-center text-xs text-gray-500 flex flex-col items-center">
+          <div className="flex items-center gap-2">
+            <svg className="h-4 w-4 text-accent-light" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13h-2v6h6v-2h-4V5z" /></svg>
+            <span>&copy; {currentYear} Zeno Innovation. All rights reserved.</span>
           </div>
         </div>
       </div>
