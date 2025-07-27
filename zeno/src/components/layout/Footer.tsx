@@ -47,12 +47,16 @@ const quickLinks = [
   { name: 'Terms of Service', href: '/terms' },
 ];
 
+const currentYear = new Date().getFullYear();
+
 const Footer = () => {
   return (
-    <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white">
+    <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 z-0 h-96 w-[60rem] -translate-x-1/2 bg-gradient-to-tr from-accent-light/20 via-accent-light/10 to-white/0 opacity-50 blur-3xl animate-gradient-move" />
       {/* Enhanced glowing accent border */}
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-light/0 via-accent-light/70 to-accent-light/0 blur-sm opacity-70" />
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         {/* Logo, Company Name, Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,63 +64,43 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex flex-col items-center mb-6">
-            <img src={ReactLogo} alt="React Logo" className="h-12 w-12 mb-2 drop-shadow-lg" />
-            <span className="text-2xl font-bold tracking-wide text-accent-light">Zeno Innovation</span>
-            <span className="text-base text-gray-300 mt-2 text-center max-w-xs">Empowering Innovation, Inspiring Progress.</span>
-            <span className="text-xs text-gray-400 mt-2">Made with <span className="text-red-400">❤️</span> using React</span>
+          <div className="flex flex-col items-center gap-3 mb-6">
+            <img src={ReactLogo} alt="React Logo" className="h-12 w-12 drop-shadow-lg transition-transform hover:scale-105 hover:drop-shadow-2xl" style={{ filter: 'drop-shadow(0 0 8px #38bdf8aa)' }} />
+            <span className="text-2xl font-bold tracking-tight text-accent-light drop-shadow-md">Zeno Innovation</span>
+            <span className="text-sm text-gray-400 font-medium">Innovating for a smarter future</span>
           </div>
-        </motion.div>
-          className="flex flex-col items-center justify-center mb-6"
-        >
-          <img src={ReactLogo} alt="Company Logo" aria-label="Company Logo" className="h-12 w-12 mb-2" />
           <span className="text-xl font-bold tracking-wide text-accent-light">Your Company</span>
           <span className="text-sm text-gray-400 mt-2 text-center max-w-xs">Empowering innovation through technology and creativity.</span>
         </motion.div>
 
         {/* Navigation Links */}
-        <motion.nav
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
-          aria-label="Footer"
-        >
+        <nav className="mt-10 flex flex-wrap justify-center gap-6" aria-label="Footer">
           {navigation.main.map((item) => (
-            <div key={item.name} className="pb-6">
-              <Link
-                to={item.href}
-                className="text-sm leading-6 text-gray-300 hover:text-accent-light focus:text-accent-light focus:outline-none focus:ring-2 focus:ring-accent-light rounded transition-colors duration-300 px-2 py-1"
-              >
-                {item.name}
-              </Link>
-            </div>
+            <Link
+              key={item.name}
+              to={item.href}
+              className="text-base text-gray-300 hover:text-accent-light transition-colors font-semibold px-3 py-1 rounded-md hover:bg-accent-light/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light"
+            >
+              {item.name}
+            </Link>
           ))}
-        </motion.nav>
+        </nav>
 
         {/* Social Icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mt-10 flex flex-wrap justify-center gap-8"
-        >
+        <div className="mt-8 flex justify-center gap-6">
           {navigation.social.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-400 hover:text-accent-light focus:text-accent-light focus:outline-none focus:ring-2 focus:ring-accent-light rounded-full transition-colors duration-300 p-2"
-              aria-label={item.name}
+              className="group text-gray-400 hover:text-accent-light transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="sr-only">{item.name}</span>
-              {item.icon({ className: 'h-6 w-6' })}
+              <item.icon className="h-6 w-6 group-hover:scale-110 group-hover:drop-shadow-lg transition-transform" aria-hidden="true" />
             </a>
           ))}
-        </motion.div>
+        </div>
 
         {/* Newsletter Signup */}
         <motion.div
@@ -134,7 +118,7 @@ const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8 }}
           className="mt-10 flex flex-col items-center space-y-4"
         >
           <div className="flex items-center space-x-2 text-gray-400">
@@ -164,7 +148,7 @@ const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8 }}
           className="mt-10 flex justify-center"
         >
           <button
@@ -177,31 +161,25 @@ const Footer = () => {
           </button>
         </motion.div>
 
-        {/* Quick Links Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="mt-10 flex flex-wrap justify-center gap-8"
-        >
-          {quickLinks.map((link) => (
+        {/* Quick links */}
+        <div className="mt-8 flex justify-center gap-8">
+          {quickLinks.map((item) => (
             <Link
-              key={link.name}
-              to={link.href}
-              className="text-sm text-gray-400 hover:text-accent-light transition-colors duration-300 underline-offset-2 hover:underline"
+              key={item.name}
+              to={item.href}
+              className="text-sm text-gray-400 hover:text-accent-light transition-colors px-2 py-1 rounded hover:bg-accent-light/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light"
             >
-              {link.name}
+              {item.name}
             </Link>
           ))}
-        </motion.div>
+        </div>
 
         {/* Contact & Built With */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="mt-10 flex flex-col items-center text-gray-400 space-y-2"
         >
           <div className="flex items-center space-x-2">
@@ -223,23 +201,15 @@ const Footer = () => {
           </div>
         </motion.div>
 
-
-        {/* Copyright Section */}
-        <div className="mt-12 border-t border-accent-light/30 pt-6 text-center text-xs text-gray-500 flex flex-col items-center">
-          <div className="flex items-center gap-2">
-            <svg className="h-4 w-4 text-accent-light" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13h-2v6h6v-2h-4V5z" /></svg>
-            <span>&copy; {currentYear} Zeno Innovation. All rights reserved.</span>
-          </div>
+        {/* Copyright */}
+        <div className="mt-14 flex flex-col items-center">
+          <div className="w-full max-w-2xl border-t border-gray-800 mb-4" />
+          <span className="text-xs text-gray-500 tracking-wide">&copy; {currentYear} Zeno Innovation. All rights reserved.</span>
         </div>
       </div>
     </footer>
   );
 };
-
-// Add dynamic year
-const currentYear = new Date().getFullYear();
-
-// Copyright line will be rendered in the footer
 
 
 export default Footer;
