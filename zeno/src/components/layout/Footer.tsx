@@ -92,12 +92,12 @@ const Footer = () => {
             <a
               key={item.name}
               href={item.href}
-              className="group text-gray-400 hover:text-accent-light transition-colors"
+              className="group text-gray-400 hover:text-accent-light hover:bg-accent-light/10 rounded-full p-2 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={item.name}
             >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6 group-hover:scale-110 group-hover:drop-shadow-lg transition-transform" aria-hidden="true" />
+              <item.icon className="h-6 w-6 group-hover:scale-125 group-hover:drop-shadow-lg transition-transform duration-200" aria-hidden="true" />
             </a>
           ))}
         </div>
@@ -162,12 +162,12 @@ const Footer = () => {
         </motion.div>
 
         {/* Quick links */}
-        <div className="mt-8 flex justify-center gap-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-4 sm:gap-8">
           {quickLinks.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className="text-sm text-gray-400 hover:text-accent-light transition-colors px-2 py-1 rounded hover:bg-accent-light/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light"
+              className="text-sm text-gray-400 hover:text-accent-light transition-colors px-3 py-1 rounded-full hover:bg-accent-light/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light font-medium shadow-sm"
             >
               {item.name}
             </Link>
@@ -204,7 +204,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-14 flex flex-col items-center">
           <div className="w-full max-w-2xl border-t border-gray-800 mb-4" />
-          <span className="text-xs text-gray-500 tracking-wide">&copy; {currentYear} Zeno Innovation. All rights reserved.</span>
+          <span className="text-xs text-gray-500 tracking-wide">&copy; {currentYear} <span className="font-semibold text-accent-light">Zeno Innovation</span>. All rights reserved.</span>
         </div>
       </div>
     </footer>
