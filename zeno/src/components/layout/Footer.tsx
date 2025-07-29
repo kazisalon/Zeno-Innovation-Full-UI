@@ -49,6 +49,7 @@ const quickLinks = [
 
 const currentYear = new Date().getFullYear();
 
+const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
     <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white overflow-hidden">
@@ -205,6 +206,8 @@ const Footer = () => {
         <div className="mt-14 flex flex-col items-center">
           <div className="w-full max-w-2xl border-t border-gray-800 mb-4" />
           <span className="text-xs text-gray-500 tracking-wide">&copy; {currentYear} <span className="font-semibold text-accent-light">Zeno Innovation</span>. All rights reserved.</span>
+          <span className="text-xs text-gray-400 mt-2">Made with ❤️ by the Zeno team. Connect with us on social media!</span>
+          {/* Additional social links can be added here */}
         </div>
       </div>
     </footer>
