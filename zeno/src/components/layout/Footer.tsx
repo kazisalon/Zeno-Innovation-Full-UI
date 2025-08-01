@@ -50,9 +50,31 @@ const quickLinks = [
 const currentYear = new Date().getFullYear();
 
 const currentYear = new Date().getFullYear();
+import { useEffect, useState } from 'react';
+
 const Footer = () => {
+  // Scroll progress bar state
+  const [scroll, setScroll] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      setScroll(height > 0 ? (scrolled / height) * 100 : 0);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   return (
-    <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white overflow-hidden">
+    <>
+      {/* Scroll Progress Bar */}
+      <div className="fixed bottom-0 left-0 w-full z-50 pointer-events-none">
+        <div
+          className="h-1 bg-gradient-to-r from-accent-light to-accent rounded-full transition-all duration-300"
+          style={{ width: `${scroll}%` }}
+        />
+      </div>
+      <footer className="relative mt-24 sm:mt-32 bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white overflow-hidden">
       {/* Animated gradient background */}
       <div className="pointer-events-none absolute -top-32 left-1/2 z-0 h-96 w-[60rem] -translate-x-1/2 bg-gradient-to-tr from-accent-light/20 via-accent-light/10 to-white/0 opacity-50 blur-3xl animate-gradient-move" />
       {/* Enhanced glowing accent border */}
@@ -211,6 +233,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 
