@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Newsletter from '../sections/Newsletter';
 import ReactLogo from '../../assets/react.svg';
 
@@ -48,9 +49,6 @@ const quickLinks = [
 ];
 
 const currentYear = new Date().getFullYear();
-
-const currentYear = new Date().getFullYear();
-import { useEffect, useState } from 'react';
 
 const Footer = () => {
   // Scroll progress bar state

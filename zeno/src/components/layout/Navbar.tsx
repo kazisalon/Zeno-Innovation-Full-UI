@@ -96,18 +96,6 @@ export default function Navbar() {
       setShowSuggestions(false);
     }
 
-    // Persistent dark mode
-    const storedTheme = localStorage.getItem('zeno-theme');
-    if (storedTheme) setDarkMode(storedTheme === 'dark');
-    useEffect(() => {
-      localStorage.setItem('zeno-theme', darkMode ? 'dark' : 'light');
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }, [darkMode]);
-
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleTouchStart);
@@ -117,7 +105,23 @@ export default function Navbar() {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleTouchStart);
     };
-  }, [scrolled, searchQuery, mobileMenuOpen, darkMode]);
+  }, [scrolled, searchQuery, mobileMenuOpen]);
+
+  // Separate useEffect for dark mode initialization
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('zeno-theme');
+    if (storedTheme) setDarkMode(storedTheme === 'dark');
+  }, []);
+
+  // Separate useEffect for dark mode changes
+  useEffect(() => {
+    localStorage.setItem('zeno-theme', darkMode ? 'dark' : 'light');
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
