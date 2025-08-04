@@ -216,7 +216,7 @@ export default function Navbar() {
               aria-expanded={userDropdownOpen}
             >
               <UserCircleIcon className="h-7 w-7 text-cyan-400" />
-<span className="ml-2 text-base font-medium text-cyan-600 dark:text-cyan-300 hidden md:inline-block animate-fade-in">
+<span className="ml-2 text-base font-medium text-gray-100 hidden md:inline-block animate-fade-in">
   {getGreeting()}
 </span>
             </button>
@@ -293,7 +293,7 @@ export default function Navbar() {
             >
               <Link
                 to={item.href}
-                className={`nav-link text-lg font-medium px-2 py-1 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 ${location.pathname === item.href ? 'text-cyan-400 font-bold underline underline-offset-8 decoration-2 decoration-cyan-400' : 'text-gray-200 hover:text-cyan-400'}`}
+                className={`nav-link text-lg font-medium px-2 py-1 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 ${location.pathname === item.href ? 'text-cyan-400 font-bold underline underline-offset-8 decoration-2 decoration-cyan-400' : 'text-gray-100 hover:text-cyan-400'}`}
                 tabIndex={0}
                 aria-label={item.name}
                 aria-current={location.pathname === item.href ? 'page' : undefined}

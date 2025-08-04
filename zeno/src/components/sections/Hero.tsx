@@ -92,7 +92,7 @@ const Hero = () => {
               type: "spring",
               stiffness: 50
             }}
-            className="mt-6 text-lg leading-8 text-gray-300 hover-lift relative group"
+            className="mt-6 text-lg leading-8 text-gray-100 hover-lift relative group font-medium"
           >
             We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
             <motion.span
@@ -139,14 +139,14 @@ const Hero = () => {
             <motion.a
               whileHover={{ x: 5, y: -2 }}
               href="/services"
-              className="text-sm font-semibold leading-6 text-gray-200 hover:text-accent-light transition-all duration-300 flex items-center group"
+              className="text-sm font-semibold leading-6 text-gray-100 hover:text-accent-light transition-all duration-300 flex items-center group"
             >
               Learn more
               <motion.span
                 initial={{ x: 0 }}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
-                className="ml-2 group-hover:text-accent"
+                className="ml-2 group-hover:text-accent-light"
               >
                 →
               </motion.span>
@@ -219,7 +219,7 @@ const Hero = () => {
           }}
           className="flex flex-col items-center"
         >
-          <span className="text-sm text-gray-400 mb-2">Scroll to explore</span>
+          <span className="text-sm text-gray-200 mb-2 font-medium">Scroll to explore</span>
           <motion.div
             className="w-6 h-10 border-2 border-accent-light/30 rounded-full flex justify-center"
             initial={{ opacity: 0.5 }}
