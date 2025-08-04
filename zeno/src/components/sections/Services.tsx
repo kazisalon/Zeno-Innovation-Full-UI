@@ -163,7 +163,7 @@ const Services = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.3 }}
-                    className="mt-4 text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-lg"
+                    className="mt-4 text-gray-100 group-hover:text-white transition-colors duration-300 text-lg font-medium"
                   >
                     {service.description}
                   </motion.p>
@@ -186,7 +186,7 @@ const Services = () => {
                               animate={{ opacity: 1, x: 0 }}
                               whileHover={{ x: 8, color: '#fff' }}
                               transition={{ duration: 0.3, delay: i * 0.1 }}
-                              className="flex items-center text-base text-gray-300 group-hover:text-white transition-colors duration-300 group-hover:pl-2"
+                              className="flex items-center text-base text-gray-100 group-hover:text-white transition-colors duration-300 group-hover:pl-2 font-medium"
                             >
                               <svg className="w-4 h-4 text-accent-light mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                               {feature}

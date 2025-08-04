@@ -177,7 +177,7 @@ const Contact = () => {
                   <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-accent-light/20 text-accent-light group-hover:bg-accent-light/30 transition-all duration-300">
                     {info.icon}
                   </div>
-                  <span className="text-sm font-semibold text-gray-300 uppercase tracking-wide">{info.label}</span>
+                  <span className="text-sm font-semibold text-gray-100 uppercase tracking-wide">{info.label}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   {info.href ? (
@@ -278,7 +278,7 @@ const Contact = () => {
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent">
             Get in Touch
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-300">
+          <p className="mt-6 text-xl leading-8 text-gray-100 font-medium">
             Ready to start your next project? Let's discuss how we can help bring your vision to life.
           </p>
         </motion.div>

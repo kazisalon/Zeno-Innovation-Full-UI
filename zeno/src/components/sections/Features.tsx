@@ -96,7 +96,7 @@ const Features = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto"
+            className="mt-6 text-xl leading-8 text-gray-100 max-w-2xl mx-auto font-medium"
           >
             We combine innovation with expertise to deliver exceptional results for your business
           </motion.p>
@@ -129,8 +129,8 @@ const Features = () => {
                     {feature.title}
                   </span>
                 </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
-                  <p className="flex-auto text-lg group-hover:text-white transition-colors duration-300">
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-100">
+                  <p className="flex-auto text-lg group-hover:text-white transition-colors duration-300 font-medium">
                     {feature.description}
                   </p>
                   <motion.div 

@@ -92,7 +92,7 @@ const Hero = () => {
               type: "spring",
               stiffness: 50
             }}
-            className="mt-6 text-lg leading-8 text-gray-100 hover-lift relative group font-medium"
+            className="mt-6 text-xl leading-8 text-white hover-lift relative group font-medium max-w-4xl mx-auto"
           >
             We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
             <motion.span
@@ -118,14 +118,14 @@ const Hero = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
               href="/contact"
-              className="relative overflow-hidden group px-8 py-3 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-semibold shadow-lg hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_16px_rgba(var(--accent-light-rgb),0.6)] transition-all duration-300"
+              className="relative overflow-hidden group px-10 py-4 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-bold text-lg shadow-2xl hover:shadow-[0_12px_40px_rgba(var(--accent-light-rgb),0.6),0_0_24px_rgba(var(--accent-light-rgb),0.8)] transition-all duration-300 border border-white/20"
             >
               <span className="relative z-10 flex items-center">
                 Start Your Project
-                <motion.svg 
-                  className="w-5 h-5 ml-2" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
+                <motion.svg
+                  className="w-6 h-6 ml-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
                   stroke="currentColor"
                   animate={{ x: isHovered ? 5 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -139,14 +139,14 @@ const Hero = () => {
             <motion.a
               whileHover={{ x: 5, y: -2 }}
               href="/services"
-              className="text-sm font-semibold leading-6 text-gray-100 hover:text-accent-light transition-all duration-300 flex items-center group"
+              className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/20 hover:border-accent-light/50 hover:bg-white/5"
             >
               Learn more
               <motion.span
                 initial={{ x: 0 }}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
-                className="ml-2 group-hover:text-accent-light"
+                className="ml-3 group-hover:text-accent-light text-xl"
               >
                 →
               </motion.span>
