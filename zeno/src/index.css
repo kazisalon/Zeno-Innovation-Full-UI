@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* CSS Custom Properties */
+:root {
+  --accent-light-rgb: 96, 165, 250;
+  --accent-light: #60A5FA;
+  --accent: #2563EB;
+  --primary: #0A0F1C;
+  --secondary: #10B981;
+  --secondary-light: #34D399;
+  --background: #030712;
+}
+
 /* Base Professional Styles */
 * {
   box-sizing: border-box;
@@ -85,6 +96,44 @@ p {
 * {
   transform-style: preserve-3d;
   backface-visibility: hidden;
+}
+
+/* Glass Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient Border */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(37, 99, 235, 0.3));
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
 }
 
 /* Reduced motion preferences */
