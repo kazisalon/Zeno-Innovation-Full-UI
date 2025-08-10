@@ -60,7 +60,7 @@ const Contact = () => {
     {
       icon: <FaEnvelope className="w-5 h-5" />,
       label: "Email",
-      value: "hello@example.com",
+      value: "zeno@gmail.com",
       copyType: 'email' as const,
       href: "mailto:hello@example.com"
     },
