@@ -62,7 +62,7 @@ const Contact = () => {
       label: "Email",
       value: "zeno@gmail.com",
       copyType: 'email' as const,
-      href: "mailto:hello@example.com"
+      href: "mailto:raisawlon@gmail.com"
     },
     {
       icon: <FaPhone className="w-5 h-5" />,
