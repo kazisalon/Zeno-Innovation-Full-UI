@@ -67,7 +67,7 @@ const Contact = () => {
     {
       icon: <FaPhone className="w-5 h-5" />,
       label: "Phone",
-      value: "+1 (555) 123-4567",
+      value: "9867626767",
       copyType: 'phone' as const,
       href: "tel:+15551234567"
     },
