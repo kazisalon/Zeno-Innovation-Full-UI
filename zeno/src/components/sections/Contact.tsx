@@ -74,7 +74,7 @@ const Contact = () => {
     {
       icon: <FaMapMarkerAlt className="w-5 h-5" />,
       label: "Location",
-      value: "San Francisco, CA",
+      value: "Koteshowr",
       copyType: null,
       href: null
     }
