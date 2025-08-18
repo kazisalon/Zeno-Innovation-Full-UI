@@ -69,7 +69,7 @@ const Contact = () => {
       label: "Phone",
       value: "9867626767",
       copyType: 'phone' as const,
-      href: "tel:+15551234567"
+      href: "tel: +977 9867626767"
     },
     {
       icon: <FaMapMarkerAlt className="w-5 h-5" />,
