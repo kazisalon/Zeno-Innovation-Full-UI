@@ -261,7 +261,107 @@ const features = [
                             </svg>                            import { motion } from 'framer-motion';
                             
                             const features = [
-                              {
+                              {                              import { motion } from 'framer-motion';
+                              
+                              const features = [
+                                {
+                                  title: "Innovative Solutions",
+                                  description: "Cutting-edge technology solutions tailored to your business needs",
+                                  icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                  ),
+                                },
+                                {
+                                  title: "Expert Team",
+                                  description: "Skilled professionals with years of industry experience",
+                                  icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                  ),
+                                },
+                                {
+                                  title: "24/7 Support",
+                                  description: "Round-the-clock assistance for all your technical needs",
+                                  icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                  ),
+                                },
+                                {
+                                  title: "Scalable Architecture",
+                                  description: "Future-proof solutions that grow with your business",
+                                  icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                  ),
+                                },
+                                {
+                                  title: "Custom Integrations",
+                                  description: "Seamlessly integrate with your existing systems and workflows",
+                                  icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 8v4m0-4h4m-4 0H8" />
+                                    </svg>
+                                  ),
+                                },
+                              ];
+                              
+                              const Features = () => {
+                                return (
+                                  <section className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-b from-primary to-background">
+                                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                                      {/* Header */}
+                                      <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.8 }}
+                                        className="mx-auto max-w-2xl text-center"
+                                      >
+                                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+                                          Why Choose Us
+                                        </h2>
+                                        <p className="mt-6 text-xl leading-8 text-gray-100 max-w-2xl mx-auto font-medium">
+                                          We combine innovation with expertise to deliver exceptional results for your business
+                                        </p>
+                                      </motion.div>
+                              
+                                      {/* Features Grid */}
+                                      <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                                        <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+                                          {features.map((feature, index) => (
+                                            <motion.div
+                                              key={feature.title}
+                                              initial={{ opacity: 0, y: 20 }}
+                                              whileInView={{ opacity: 1, y: 0 }}
+                                              viewport={{ once: true }}
+                                              transition={{ duration: 0.5, delay: index * 0.1 }}
+                                              className="relative group"
+                                            >
+                                              <div className="relative p-6 bg-white/5 rounded-xl">
+                                                <div className="flex items-center gap-x-4">
+                                                  <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-blue-500/20 text-blue-400">
+                                                    {feature.icon}
+                                                  </div>
+                                                  <h3 className="text-lg font-semibold leading-8 text-white">{feature.title}</h3>
+                                                </div>
+                                                <p className="mt-4 text-sm leading-6 text-gray-300">{feature.description}</p>
+                                              </div>
+                                            </motion.div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                );
+                              };
+                              
+                              export default Features;
                                 title: "Innovative Solutions",
                                 description: "Cutting-edge technology solutions tailored to your business needs",
                                 icon: (
