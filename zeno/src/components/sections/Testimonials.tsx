@@ -140,7 +140,139 @@ const Testimonials = () => {
               
               const testimonials = [
                 {
-                  content: "Working with this team has transformed our digital presence. Their innovative solutions have helped us reach new heights in our industry.",
+                  content: "Working with                  import { useState, useRef, useEffect } from 'react';
+                  import { motion } from 'framer-motion';
+                  
+                  const testimonials = [
+                    {
+                      content: "Working with this team has transformed our digital presence. Their innovative solutions have helped us reach new heights in our industry.",
+                      author: "Shristi Sharma",
+                      role: "CEO, TechVision",
+                      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+                    },
+                    {
+                      content: "The level of expertise and attention to detail is outstanding. They delivered our project on time and exceeded our expectations.",
+                      author: "Michael Chen",
+                      role: "CTO, InnovateCorp",
+                      image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+                    },
+                    {
+                      content: "Their team's ability to understand our needs and translate them into effective solutions is remarkable. A true partner in our success.",
+                      author: "Emily Rodriguez",
+                      role: "Director of Digital Strategy, GrowthLabs",
+                      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+                    },
+                  ];
+                  
+                  const StarRating = () => (
+                    <div className="flex items-center mb-2" aria-label="5 star rating">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className="w-5 h-5 text-yellow-400 mr-0.5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <polygon points="10 1.5 12.59 7.36 18.9 7.64 13.97 11.97 15.54 18.09 10 14.5 4.46 18.09 6.03 11.97 1.1 7.64 7.41 7.36 10 1.5" />
+                        </svg>
+                      ))}
+                    </div>
+                  );
+                  
+                  const Testimonials = () => {
+                    const [current, setCurrent] = useState(0);
+                    const [paused, setPaused] = useState(false);
+                    const timeoutRef = useRef<number | null>(null);
+                  
+                    // Auto-play logic
+                    useEffect(() => {
+                      if (!paused) {
+                        timeoutRef.current = window.setTimeout(() => {
+                          setCurrent((prev) => (prev + 1) % testimonials.length);
+                        }, 6000);
+                      }
+                      return () => clearTimeout(timeoutRef.current ?? undefined);
+                    }, [current, paused]);
+                  
+                    return (
+                      <div className="relative py-24 sm:py-32 overflow-hidden">
+                        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="mx-auto max-w-2xl text-center"
+                          >
+                            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
+                              Client Success Stories
+                            </h2>
+                            <p className="mt-6 text-lg leading-8 text-gray-300">
+                              Hear from our clients about their experience working with us.
+                            </p>
+                          </motion.div>
+                  
+                          {/* Carousel */}
+                          <div
+                            className="mx-auto mt-16 max-w-2xl flex flex-col items-center relative"
+                            onMouseEnter={() => setPaused(true)}
+                            onMouseLeave={() => setPaused(false)}
+                            tabIndex={0}
+                            aria-roledescription="carousel"
+                            aria-label="Testimonials carousel"
+                          >
+                            <motion.div
+                              key={current}
+                              initial={{ opacity: 0, x: 60 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -60 }}
+                              transition={{ type: 'spring', stiffness: 80, damping: 20 }}
+                              className="w-full"
+                            >
+                              <div className="relative bg-gradient-to-br from-primary/80 to-accent/10 rounded-2xl p-8 shadow-lg">
+                                <div className="flex items-center gap-x-4 mb-4">
+                                  <img
+                                    className="h-12 w-12 rounded-full"
+                                    src={testimonials[current].image}
+                                    alt={testimonials[current].author}
+                                    onError={(e) => (e.currentTarget.src = '/fallback-image.png')}
+                                  />
+                                  <div>
+                                    <h3 className="text-base font-semibold text-white">
+                                      {testimonials[current].author}
+                                    </h3>
+                                    <p className="text-sm text-gray-400">{testimonials[current].role}</p>
+                                  </div>
+                                </div>
+                                <StarRating />
+                                <p className="text-base text-gray-300 mt-6">
+                                  "{testimonials[current].content}"
+                                </p>
+                              </div>
+                            </motion.div>
+                  
+                            {/* Carousel controls */}
+                            <div className="flex gap-2 mt-6">
+                              {testimonials.map((_, idx) => (
+                                <button
+                                  key={idx}
+                                  className={`w-3 h-3 rounded-full border-2 ${
+                                    current === idx ? 'bg-accent-light border-accent-light' : 'bg-gray-700 border-gray-500'
+                                  }`}
+                                  onClick={() => setCurrent(idx)}
+                                  aria-label={`Go to testimonial ${idx + 1}`}
+                                  aria-current={current === idx ? 'true' : 'false'}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  };
+                  
+                  export default Testimonials; this team has transformed our digital presence. Their innovative solutions have helped us reach new heights in our industry.",
                   author: "Shristi Sharma",
                   role: "CEO, TechVision",
                   image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
