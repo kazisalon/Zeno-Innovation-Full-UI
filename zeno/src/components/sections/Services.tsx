@@ -26,7 +26,7 @@ const services = [
     features: ['Process Automation', 'API Integration', 'Data Analytics', 'Custom Workflows'],
   },
   {
-    name: 'Digital Innovation',
+    name: 'AI Solutions',
     description: 'Cutting-edge solutions leveraging the latest technologies in AI, IoT, and cloud computing.',
     icon: RocketLaunchIcon,
     gradient: 'from-red-400 to-accent',
