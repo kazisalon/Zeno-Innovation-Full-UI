@@ -19,7 +19,7 @@ const services = [
     features: ['iOS & Android', 'React Native', 'Flutter', 'Native APIs'],
   },
   {
-    name: 'Custom Software',
+    name: 'Digital Marketing',
     description: 'Tailored software solutions that automate processes and solve complex business challenges.',
     icon: CodeBracketIcon,
     gradient: 'from-green-400 to-accent',
