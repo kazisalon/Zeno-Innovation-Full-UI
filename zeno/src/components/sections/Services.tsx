@@ -5,7 +5,7 @@ import '../../styles/animations.css';
 
 const services = [
   {
-    name: 'Web Applications',
+    name: 'Web Development',
     description: 'Custom web applications built with modern technologies and frameworks, designed for scalability and performance.',
     icon: GlobeAltIcon,
     gradient: 'from-blue-400 to-accent',
