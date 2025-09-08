@@ -16,7 +16,7 @@ const services = [
     description: 'Native and cross-platform mobile applications that deliver exceptional user experiences across all devices.',
     icon: DevicePhoneMobileIcon,
     gradient: 'from-purple-400 to-accent',
-    features: ['iOS & Android', 'React Native', 'Flutter', 'Native APIs'],
+    features: ['iOS & Android', 'Flutter', 'Native APIs'],
   },
   {
     name: 'Digital Marketing',
