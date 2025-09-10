@@ -9,7 +9,7 @@ const services = [
     description: 'Custom web applications built with modern technologies and frameworks, designed for scalability and performance.',
     icon: GlobeAltIcon,
     gradient: 'from-blue-400 to-accent',
-    features: ['React & Next.js', 'Node.js Backend', 'Cloud Integration', 'Real-time Updates'],
+    features: ['React & Next.js', 'Backend', 'Cloud Integration', 'Real-time Updates'],
   },
   {
     name: 'Mobile Development',
