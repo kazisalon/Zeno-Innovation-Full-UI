@@ -2,9 +2,9 @@
 
 /* CSS Custom Properties */
 :root {
-  --accent-light-rgb: 96, 165, 250;
-  --accent-light: #60A5FA;
-  --accent: #2563EB;
+  --accent-light-rgb: 165, 180, 252;
+  --accent-light: #A5B4FC;
+  --accent: #6366F1;
   --primary: #0A0F1C;
   --secondary: #10B981;
   --secondary-light: #34D399;

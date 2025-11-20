@@ -32,9 +32,10 @@ const Hero = () => {
   return (
     <div ref={containerRef} className="relative isolate overflow-hidden pt-14 min-h-screen">
       {/* Enhanced background effects */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.45)_0%,transparent_75%)] animate-gradient" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/40 via-accent/20 to-transparent animate-shimmer" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.3)_0%,transparent_50%)] animate-glow" />
+      // Background effects at the top of the component
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.25)_0%,transparent_75%)] animate-gradient" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/20 via-accent/10 to-transparent animate-shimmer" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.2)_0%,transparent_50%)] animate-glow" />
       
       {/* Interactive 3D background */}
       <motion.div 
@@ -74,7 +75,7 @@ const Hero = () => {
               type: "spring",
               stiffness: 100
             }}
-            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-400 via-accent-light to-blue-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.2),0_8px_16px_rgba(var(--accent-light-rgb),0.1)]"
+            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-accent-light via-indigo-400 to-accent bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.18),0_8px_16px_rgba(var(--accent-light-rgb),0.08)]"
             style={{
               transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
             }}
