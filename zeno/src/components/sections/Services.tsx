@@ -34,11 +34,98 @@ const services = [
   },
 ];
 
+// Add a typed modal for service details
+type ServiceType = typeof services[number];
+
+const ServiceDetailModal = ({
+  service,
+  onClose,
+}: {
+  service: ServiceType;
+  onClose: () => void;
+}) => {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${service.name} details`}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="relative w-[92%] max-w-2xl rounded-2xl p-6 glass-effect border border-white/25 bg-white/10 shadow-2xl"
+          initial={{ y: 40, opacity: 0, scale: 0.98 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 40, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={`absolute inset-0 rounded-2xl bg-gradient-to-tr ${service.gradient} opacity-20`} />
+          <div className="relative">
+            <div className="flex items-center gap-3">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${service.gradient} flex items-center justify-center shadow-lg`}>
+                <service.icon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-semibold bg-gradient-to-r from-accent-light to-accent bg-clip-text text-transparent">
+                {service.name}
+              </h3>
+            </div>
+
+            <p className="mt-4 text-gray-100 text-base">{service.description}</p>
+
+            <div className="mt-6">
+              <h4 className="text-sm font-semibold text-white/80">Key capabilities</h4>
+              <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {service.features.map((f) => (
+                  <li key={f} className="flex items-center text-gray-100">
+                    <svg className="w-4 h-4 text-accent-light mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-accent to-blue-500 text-white font-semibold shadow-lg hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-accent/60 focus:ring-offset-2"
+              >
+                Start your project
+                <svg className="ml-2 w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" /></svg>
+              </a>
+              <button
+                onClick={onClose}
+                className="inline-flex items-center px-5 py-2.5 rounded-full bg-white/10 text-white/90 hover:bg-white/20 border border-white/20 transition-all"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const Services = () => {
   const containerRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeService, setActiveService] = useState<number | null>(null);
+  const particleCount =
+    typeof window !== 'undefined' && window.innerWidth < 640 ? 16 : 40;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -83,6 +170,7 @@ const Services = () => {
         style={{ y, opacity }}
         className="mx-auto max-w-7xl relative px-6 lg:px-8"
       >
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -117,25 +205,40 @@ const Services = () => {
           />
         </motion.div>
 
+        {/* Tech badges for quick social proof */}
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          {['React', 'Next.js', 'Flutter', 'AWS', 'Azure', 'GCP'].map((badge) => (
+            <motion.span
+              key={badge}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="px-3 py-1 rounded-full text-xs font-semibold text-white/90 bg-white/10 border border-white/20 hover:bg-white/20 transition"
+            >
+              {badge}
+            </motion.span>
+          ))}
+        </div>
+
         <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={service.name}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ y: -8, scale: 1.02, rotate: 2 }} // Added tilt effect
-              onHoverStart={() => {
-                setHoveredIndex(index);
-                setActiveService(index);
+              whileHover={{ y: -8, scale: 1.02, rotate: 2 }}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
+              onClick={() => setActiveService(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveService(index);
               }}
-              onHoverEnd={() => {
-                setHoveredIndex(null);
-                setActiveService(null);
-              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Open ${service.name} details`}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer relative animate-float group-hover:ring-4 group-hover:ring-accent/40 group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_32px_rgba(var(--accent-light-rgb),0.7)] transition-shadow" // Added pulsing shadow
-              aria-label={`Service: ${service.name}`}
+              className="group cursor-pointer relative animate-float group-hover:ring-4 group-hover:ring-accent/40 group-hover:shadow-[0_8px_32px_rgba(var(--accent-light-rgb),0.4),0_0_32px_rgba(var(--accent-light-rgb),0.7)] transition-shadow"
             >
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-90 group-hover:ring-4 group-hover:ring-accent/40`} />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl animate-pulse" />
@@ -205,7 +308,7 @@ const Services = () => {
 
       {/* Enhanced floating particles with mouse interaction */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(40)].map((_, i) => {
+        {[...Array(particleCount)].map((_, i) => {
           const colorClass = i % 5 === 0 ? 'bg-accent' : i % 3 === 0 ? 'bg-blue-400/30' : 'bg-accent-light/20';
           const size = i % 7 === 0 ? 'w-2.5 h-2.5' : i % 3 === 0 ? 'w-2 h-2' : 'w-1.5 h-1.5';
           return (
@@ -213,24 +316,12 @@ const Services = () => {
               key={i}
               className={`absolute ${size} rounded-full ${colorClass}`}
               initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 800),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 600),
               }}
-              animate={{
-                y: [0, -100],
-                x: [0, Math.random() * 50 - 25],
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 5 + 5,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "easeInOut",
-              }}
-              style={{
-                filter: `blur(${Math.random() * 2}px)`,
-              }}
+              animate={{ y: [0, -100], x: [0, Math.random() * 50 - 25], opacity: [0, 1, 0], scale: [0, 1, 0] }}
+              transition={{ duration: Math.random() * 5 + 5, repeat: Infinity, delay: Math.random() * 5, ease: 'easeInOut' }}
+              style={{ filter: `blur(${Math.random() * 2}px)` }}
             />
           );
         })}
