@@ -7,6 +7,10 @@ const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  // Adaptive particle count for performance
+  const particleCount =
+    typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 24;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -33,9 +37,9 @@ const Hero = () => {
     <div ref={containerRef} className="relative isolate overflow-hidden pt-14 min-h-screen">
       {/* Enhanced background effects */}
       // Background effects at the top of the component
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.25)_0%,transparent_75%)] animate-gradient" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/20 via-accent/10 to-transparent animate-shimmer" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.2)_0%,transparent_50%)] animate-glow" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.12)_0%,transparent_75%)] animate-gradient" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 via-accent/6 to-transparent animate-shimmer" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.08)_0%,transparent_50%)] animate-glow" />
       
       {/* Interactive 3D background */}
       <motion.div 
@@ -75,7 +79,7 @@ const Hero = () => {
               type: "spring",
               stiffness: 100
             }}
-            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-accent-light via-indigo-400 to-accent bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.18),0_8px_16px_rgba(var(--accent-light-rgb),0.08)]"
+            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-indigo-400 via-accent-light to-indigo-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.18),0_8px_16px_rgba(var(--accent-light-rgb),0.08)]"
             style={{
               transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
             }}
@@ -140,17 +144,10 @@ const Hero = () => {
             <motion.a
               whileHover={{ x: 5, y: -2 }}
               href="/services"
-              className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/20 hover:border-accent-light/50 hover:bg-white/5"
+              className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/15 hover:border-accent-light/40 hover:bg-white/5"
             >
               Learn more
-              <motion.span
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.2 }}
-                className="ml-3 group-hover:text-accent-light text-xl"
-              >
-                →
-              </motion.span>
+              <motion.span className="ml-2 group-hover:text-accent-light text-lg">→</motion.span>
             </motion.a>
           </motion.div>
         </motion.div>
@@ -178,26 +175,16 @@ const Hero = () => {
 
       {/* Enhanced floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(particleCount)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-accent-light/30"
+            className="absolute w-1.5 h-1.5 rounded-full bg-accent-light/30"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 800),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 600),
             }}
-            animate={{
-              y: [0, -100],
-              x: [0, Math.random() * 50 - 25],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
+            animate={{ y: [0, -100], x: [0, Math.random() * 40 - 20], opacity: [0, 1, 0], scale: [0, 1, 0] }}
+            transition={{ duration: Math.random() * 5 + 5, repeat: Infinity, delay: Math.random() * 5, ease: 'easeInOut' }}
           />
         ))}
       </div>
@@ -261,6 +248,7 @@ const Hero = () => {
       </motion.div>
 
       {/* CTA buttons remain */}
+      {/* Entire duplicate CTA group removed to keep one clean CTA row */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -292,17 +280,10 @@ const Hero = () => {
         <motion.a
           whileHover={{ x: 5, y: -2 }}
           href="/services"
-          className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/20 hover:border-accent-light/50 hover:bg-white/5"
+          className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/15 hover:border-accent-light/40 hover:bg-white/5"
         >
           Learn more
-          <motion.span
-            initial={{ x: 0 }}
-            whileHover={{ x: 5 }}
-            transition={{ duration: 0.2 }}
-            className="ml-3 group-hover:text-accent-light text-xl"
-          >
-            →
-          </motion.span>
+          <motion.span className="ml-2 group-hover:text-accent-light text-lg">→</motion.span>
         </motion.a>
       </motion.div>
 
