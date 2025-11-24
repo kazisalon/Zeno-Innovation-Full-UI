@@ -35,12 +35,10 @@ const Hero = () => {
 
   return (
     <div ref={containerRef} className="relative isolate overflow-hidden pt-14 min-h-screen">
-      {/* Enhanced background effects */}
-      // Background effects at the top of the component
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.12)_0%,transparent_75%)] animate-gradient" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 via-accent/6 to-transparent animate-shimmer" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.08)_0%,transparent_50%)] animate-glow" />
-      
+      {/* Background — lower opacity for better contrast */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-light-rgb),0.12)_0%,transparent_75%)]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 via-accent/6 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(45deg,rgba(var(--accent-light-rgb),0.08)_0%,transparent_50%)]" />
       {/* Interactive 3D background */}
       <motion.div 
         className="absolute inset-0 -z-10"
