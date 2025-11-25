@@ -52,103 +52,121 @@ const Hero = () => {
         style={{ y, opacity }}
         className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, type: "spring", stiffness: 100 }}
-          className="mx-auto max-w-2xl text-center relative group"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {/* Enhanced glass effect */}
-          <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-light/30 to-accent/30 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-light-rgb),0.2)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl animate-pulse" />
-            <div className="absolute inset-0 backdrop-blur-xl bg-white/5 rounded-3xl" />
-          </div>
-
-          {/* Enhanced title with 3D effect */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.2,
-              type: "spring",
-              stiffness: 100
-            }}
-            className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-indigo-400 via-accent-light to-indigo-600 bg-clip-text text-transparent animate-gradient hover-scale [text-shadow:0_4px_8px_rgba(var(--accent-light-rgb),0.18),0_8px_16px_rgba(var(--accent-light-rgb),0.08)]"
-            style={{
-              transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
-            }}
-          >
-            Building the Future of Digital Innovation
-          </motion.h1>
-
-          {/* Enhanced description with animated underline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.4,
-              type: "spring",
-              stiffness: 50
-            }}
-            className="mt-6 text-xl leading-8 text-white hover-lift relative group font-medium max-w-4xl mx-auto"
-          >
-            We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
-            <motion.span
-              className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-light to-accent group-hover:w-full transition-all duration-500"
-              initial={{ width: 0 }}
-              animate={{ width: isHovered ? "100%" : 0 }}
-            />
-          </motion.p>
-
-          {/* Enhanced CTA buttons with hover effects */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.6,
-              type: "spring",
-              stiffness: 100
-            }}
-            className="mt-10 flex items-center justify-center gap-x-6"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1, type: "spring", stiffness: 100 }}
+            className="max-w-2xl mx-auto text-center lg:text-left relative group"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <motion.a
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              href="/contact"
-              className="relative overflow-hidden group px-10 py-4 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-bold text-lg shadow-2xl hover:shadow-[0_12px_40px_rgba(var(--accent-light-rgb),0.6),0_0_24px_rgba(var(--accent-light-rgb),0.8)] transition-all duration-300 border border-white/20"
+            <div className="absolute -inset-x-20 -inset-y-10 glass-effect rounded-3xl -z-10 gradient-border group-hover:animate-glow transition-all duration-500" />
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+              className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-indigo-400 via-accent-light to-indigo-600 bg-clip-text text-transparent animate-gradient hover-scale"
+              style={{ transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)` }}
             >
-              <span className="relative z-10 flex items-center">
-                Start Your Project
-                <motion.svg
-                  className="w-6 h-6 ml-3"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  animate={{ x: isHovered ? 5 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </motion.svg>
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-all duration-300" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_0%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-all duration-300" />
-            </motion.a>
-            <motion.a
-              whileHover={{ x: 5, y: -2 }}
-              href="/services"
-              className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/15 hover:border-accent-light/40 hover:bg-white/5"
+              Building the Future of Digital Innovation
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 50 }}
+              className="mt-6 text-xl leading-8 text-white hover-lift relative group font-medium max-w-4xl"
             >
-              Learn more
-              <motion.span className="ml-2 group-hover:text-accent-light text-lg">→</motion.span>
-            </motion.a>
+              We craft cutting-edge software solutions that transform businesses and elevate user experiences. From web applications to mobile platforms, we bring your digital vision to life.
+              <motion.span
+                className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-light to-accent group-hover:w-full transition-all duration-500"
+                initial={{ width: 0 }}
+                animate={{ width: isHovered ? "100%" : 0 }}
+              />
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
+              className="mt-10 flex items-center justify-center lg:justify-start gap-x-6"
+            >
+              <motion.a
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                href="/contact"
+                className="relative overflow-hidden group px-10 py-4 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-bold text-lg shadow-2xl hover:shadow-[0_12px_40px_rgba(var(--accent-light-rgb),0.6),0_0_24px_rgba(var(--accent-light-rgb),0.8)] transition-all duration-300 border border-white/20"
+              >
+                <span className="relative z-10 flex items-center">
+                  Start Your Project
+                  <motion.svg className="w-6 h-6 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" animate={{ x: isHovered ? 5 : 0 }} transition={{ duration: 0.3 }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </motion.svg>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_0%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-all duration-300" />
+              </motion.a>
+              <motion.a
+                whileHover={{ x: 5, y: -2 }}
+                href="/services"
+                className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/15 hover:border-accent-light/40 hover:bg-white/5"
+              >
+                Learn more
+                <motion.span className="ml-2 group-hover:text-accent-light text-lg">→</motion.span>
+              </motion.a>
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.5 }}
+            className="relative mx-auto w-full max-w-xl"
+          >
+            <div className="glass-effect rounded-3xl gradient-border p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/20 text-white">Web Apps</span>
+                <span className="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/20 text-white">Mobile</span>
+                <span className="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/20 text-white">AI</span>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                  <div className="flex items-center gap-2 text-white font-semibold mb-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    Secure APIs
+                  </div>
+                  <div className="h-2 w-full bg-gradient-to-r from-accent-light to-accent rounded-full" />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                  <div className="flex items-center gap-2 text-white font-semibold mb-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v12H4z" strokeWidth="2"/><path d="M2 20h20" strokeWidth="2"/></svg>
+                    Modern UI
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-2 w-3/4 bg-white/10 rounded" />
+                    <div className="h-2 w-1/2 bg-white/10 rounded" />
+                  </div>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                  <div className="flex items-center gap-2 text-white font-semibold mb-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20l9-14H3l9 14z" strokeWidth="2"/></svg>
+                    Performance
+                  </div>
+                  <div className="h-2 w-full bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full" />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                  <div className="flex items-center gap-2 text-white font-semibold mb-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20" strokeWidth="2"/></svg>
+                    Scalability
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-2 w-2/3 bg-white/10 rounded" />
+                    <div className="h-2 w-4/5 bg-white/10 rounded" />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Enhanced decorative elements */}
@@ -245,45 +263,7 @@ const Hero = () => {
         </span>
       </motion.div>
 
-      {/* CTA buttons remain */}
-      {/* Entire duplicate CTA group removed to keep one clean CTA row */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
-        className="mt-10 flex items-center justify-center gap-x-6"
-      >
-        <motion.a
-          whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.95 }}
-          href="/contact"
-          className="relative overflow-hidden group px-10 py-4 rounded-full bg-gradient-to-r from-accent-light to-accent text-white font-bold text-lg shadow-2xl hover:shadow-[0_12px_40px_rgba(var(--accent-light-rgb),0.6),0_0_24px_rgba(var(--accent-light-rgb),0.8)] transition-all duration-300 border border-white/20"
-        >
-          <span className="relative z-10 flex items-center">
-            Start Your Project
-            <motion.svg
-              className="w-6 h-6 ml-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              animate={{ x: isHovered ? 5 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </motion.svg>
-          </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-all duration-300" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_0%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-all duration-300" />
-        </motion.a>
-        <motion.a
-          whileHover={{ x: 5, y: -2 }}
-          href="/services"
-          className="text-lg font-semibold leading-6 text-white hover:text-accent-light transition-all duration-300 flex items-center group px-6 py-3 rounded-full border border-white/15 hover:border-accent-light/40 hover:bg-white/5"
-        >
-          Learn more
-          <motion.span className="ml-2 group-hover:text-accent-light text-lg">→</motion.span>
-        </motion.a>
-      </motion.div>
+      
 
       {/* Quick stat bar */}
       <motion.div
